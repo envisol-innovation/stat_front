@@ -11,7 +11,7 @@ export default NuxtAuthHandler({
         //     clientSecret: 'your-client-secret'
         // }),
         Auth0Provider.default({
-            clientId: "YAGMpxY60RnwOKqeLE7zRjUkVXTcJei0",
+            clientId: "BHTUZ8hZh6XXG5vGsBEyZJ74CAG3PonM",
             clientSecret: "NVsy2LYv-3nsbkYUBnkFNi0I6cRITrxu55VtekwLa8woUAHakD8RNcObbM5DNI4X",
             issuer: "https://dev-0isu4xeopx0o8w7f.eu.auth0.com/",    // this must be the full url (with https://)
             wellKnown: `https://dev-0isu4xeopx0o8w7f.eu.auth0.com/.well-known/openid-configuration`   // this is necessary for some obscure reason https://github.com/nextauthjs/next-auth/issues/7591
