@@ -96,7 +96,7 @@ async function post_swarplot() {
   console.log("Swarmplot !!!", data_csv[0]);
   // let datframe_json = data_csv.map(row => { return Object.fromEntries(Object.entries(row).filter(([k, v]) => Object.values([nom_elem, nom_classifier].values).includes(k))) });
   // console.log("datframe_json", datframe_json);
-  const { data: res } = await useFetch('http://localhost:12751/EDA_swarm_plot', {
+  const { data: res } = await useFetch('http://localhost:12751/EDASwarmPlot', {
     method: 'POST',
     body: {"dataframe_json": data_csv, "nom_classifier": nom_classifier, "nom_elem": nom_elem},
     onResponse({ request, response, options }) {

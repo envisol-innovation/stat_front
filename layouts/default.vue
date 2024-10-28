@@ -16,7 +16,14 @@
           </v-btn>
         </v-list-item>
       </v-list>
-      <button @click="signIn('auth0')">Login</button>
+      <ul>
+        <li>
+          <button @click="signIn('auth0')">Login</button>
+        </li>
+        <li>
+          <button @click="signOut()">Logout</button>
+        </li>
+      </ul>
 
       <div>
         You are currently {{ status }}.
@@ -121,5 +128,12 @@ async function lets_sign_in () {
   await signIn("auth0")
 
 }
+
+async function lets_sign_outn () {
+  console.log("trying to sign in");
+  await signOut()
+
+}
+
 </script>
 
