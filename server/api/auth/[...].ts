@@ -4,7 +4,7 @@ import Auth0Provider from "next-auth/providers/auth0";
 
 export default NuxtAuthHandler({
     // A secret string you define, to ensure correct encryption
-    secret: useRuntimeConfig().authSecret,
+    secret: "my_secret_is_not_very_secure",
     providers: [
         // GithubProvider.default({
         //     clientId: 'your-client-id',
@@ -12,7 +12,7 @@ export default NuxtAuthHandler({
         // }),
         Auth0Provider.default({
             clientId: "BHTUZ8hZh6XXG5vGsBEyZJ74CAG3PonM",
-            clientSecret: "NVsy2LYv-3nsbkYUBnkFNi0I6cRITrxu55VtekwLa8woUAHakD8RNcObbM5DNI4X",
+            clientSecret: "HLvhitWev-8HLclHEaGCExfenoGExxGg9IucD0a8HTczkrLPyZu4tHPqBsodUfd6",
             issuer: "https://dev-0isu4xeopx0o8w7f.eu.auth0.com/",    // this must be the full url (with https://)
             wellKnown: `https://dev-0isu4xeopx0o8w7f.eu.auth0.com/.well-known/openid-configuration`   // this is necessary for some obscure reason https://github.com/nextauthjs/next-auth/issues/7591
           })
