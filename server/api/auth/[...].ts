@@ -4,7 +4,7 @@ import Auth0Provider from "next-auth/providers/auth0";
 
 export default NuxtAuthHandler({
     // A secret string you define, to ensure correct encryption
-    secret: "my_secret_is_not_very_secure",
+    secret: useRuntimeConfig().authSecret,
     providers: [
         // GithubProvider.default({
         //     clientId: 'your-client-id',
