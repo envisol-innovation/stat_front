@@ -109,31 +109,31 @@
 </template>
 <script setup lang="ts">
 
-const {
-  status,
-  data,
-  lastRefreshedAt,
-  getCsrfToken,
-  getProviders,
-  getSession,
-  signIn,
-  signOut
-} = useAuth()
+// const {
+//   status,
+//   data,
+//   lastRefreshedAt,
+//   getCsrfToken,
+//   getProviders,
+//   getSession,
+//   signIn,
+//   signOut
+// } = useAuth()
 
-// await signIn("auth0")
+// // await signIn("auth0")
 
 
-async function lets_sign_in () {
-  console.log("trying to sign in");
-  await signIn("auth0")
+// async function lets_sign_in () {
+//   console.log("trying to sign in");
+//   await signIn("auth0")
 
-}
+// }
 
-async function lets_sign_outn () {
-  console.log("trying to sign in");
-  await signOut()
+// async function lets_sign_outn () {
+//   console.log("trying to sign in");
+//   await signOut()
 
-}
+// }
 
 </script>
 

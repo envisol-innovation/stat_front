@@ -96,11 +96,14 @@ let nom_elem = ref("");
 let nom_classifier = ref("");
 let img_swarplot = ref("")
 watch(img_swarplot, () => {console.log("hello new img?")})
+
+
 async function post_swarplot() {
   console.log("Swarmplot !!!", data_csv[0]);
   // let datframe_json = data_csv.map(row => { return Object.fromEntries(Object.entries(row).filter(([k, v]) => Object.values([nom_elem, nom_classifier].values).includes(k))) });
   // console.log("datframe_json", datframe_json);
-  const { data: res } = await useFetch(bck_end_base_url+'/EDASwarmPlot', {
+  // const { data: res } = await useFetch(bck_end_base_url+'/EDASwarmPlot', {
+  const { data: res } = await useFetch('http://127.0.0.1:3838'+'/EDASwarmPlot', {
     method: 'POST',
     body: {"dataframe": data_csv, "nom_classifier": nom_classifier, "nom_elem": nom_elem},
     onResponse({ request, response, options }) {
