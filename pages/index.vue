@@ -39,7 +39,11 @@
 import * as PaPa from 'papaparse';
 
 const runtimeConfig = useRuntimeConfig()
-console.log(runtimeConfig.apiSecret)
+console.log("runtimeConfig.apiSecret", runtimeConfig.apiSecret)
+console.log("runtimeConfig.backend_url_public", runtimeConfig.backend_url_public)
+console.log("BACKEND_BASE_URL", process.env.BACKEND_BASE_URL)
+const bck_end_base_url = process.env.BACKEND_BASE_URL;
+const bck_end_base_url_ = runtimeConfig.backend_url_public;
 const files = ref([]);
 let colonnes = ref([""]);
 let data_csv: any[] = [];
@@ -96,9 +100,9 @@ async function post_swarplot() {
   console.log("Swarmplot !!!", data_csv[0]);
   // let datframe_json = data_csv.map(row => { return Object.fromEntries(Object.entries(row).filter(([k, v]) => Object.values([nom_elem, nom_classifier].values).includes(k))) });
   // console.log("datframe_json", datframe_json);
-  const { data: res } = await useFetch('http://localhost:12751/EDASwarmPlot', {
+  const { data: res } = await useFetch(bck_end_base_url+'/EDASwarmPlot', {
     method: 'POST',
-    body: {"dataframe_json": data_csv, "nom_classifier": nom_classifier, "nom_elem": nom_elem},
+    body: {"dataframe": data_csv, "nom_classifier": nom_classifier, "nom_elem": nom_elem},
     onResponse({ request, response, options }) {
     // Process the response data
     // img_swarplot = response

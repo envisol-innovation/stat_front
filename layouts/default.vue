@@ -16,7 +16,7 @@
           </v-btn>
         </v-list-item>
       </v-list>
-      <ul>
+      <!-- <ul>
         <li>
           <button @click="signIn('auth0')">Login</button>
         </li>
@@ -27,7 +27,7 @@
 
       <div>
         You are currently {{ status }}.
-      </div>
+      </div> -->
 
       <!-- <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto">
