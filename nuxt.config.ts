@@ -16,7 +16,8 @@ export default defineNuxtConfig({
     }
   },
 
-  modules: ["vuetify-nuxt-module", '@sidebase/nuxt-auth'],
+  modules: ["vuetify-nuxt-module"],
+  // modules: ["vuetify-nuxt-module", '@sidebase/nuxt-auth'],
   // auth: {
   //   isEnabled: true,
   //   // disableServerSideAuth: false,

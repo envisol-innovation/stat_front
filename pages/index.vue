@@ -39,11 +39,8 @@
 import * as PaPa from 'papaparse';
 
 const runtimeConfig = useRuntimeConfig()
-console.log("runtimeConfig.apiSecret", runtimeConfig.apiSecret)
-console.log("runtimeConfig.backend_url_public", runtimeConfig.backend_url_public)
-console.log("BACKEND_BASE_URL", process.env.BACKEND_BASE_URL)
-const bck_end_base_url = process.env.BACKEND_BASE_URL;
-const bck_end_base_url_ = runtimeConfig.backend_url_public;
+const bck_end_base_url_ = runtimeConfig.public.backend_url_public;
+console.log("bck_end_base_url_ runtimeConfig.backend_url_public", bck_end_base_url_)
 const files = ref([]);
 let colonnes = ref([""]);
 let data_csv: any[] = [];
@@ -65,62 +62,39 @@ function goFunc() {
   console.log("file", files);
 
   const csv_file = files.value[0];
-  console.log("file", csv_file);
+  // console.log("file", csv_file);
   let reader = new FileReader();
   reader.readAsText(csv_file);
   reader.onload = () => {
     const csv_string: string = reader.result as string;
-    console.log("brrr", csv_string);
+    // console.log("brrr", csv_string);
     const parser = PaPa.parse(csv_string, { delimiter: ";" });
     data_csv = PaPa.parse(csv_string, { delimiter: ";", header: true }).data;
-    console.log(62, "hey now", parser.data[0]);
-    console.log(62, "hey now", data_csv);
+    // console.log(62, "hey now", parser.data[0]);
+    // console.log(62, "hey now", data_csv);
     colonnes.value = parser.data[0] as [string];
   }
 }
 
-
-// async function post_ACP() {
-//   console.log("ACP !!!", data_csv[0]);
-//   let datframe_json = data_csv.map(row => { return Object.fromEntries(Object.entries(row).filter(([k, v]) => Object.values(ACP_selected_cols.value).includes(k))) });
-//   console.log(datframe_json);
-//   const { res } = await useFetch('http://localhost:12751/EDA_swarmplot', {
-//     method: 'POST',
-//     // headers: {'Access-Control-Allow-Origin': "http://localhost:12751"},
-//     body: {"dataframe": datframe_json},
-//   });
-//   console.log(res)
-// }
-
 let nom_elem = ref("");
 let nom_classifier = ref("");
 let img_swarplot = ref("")
+
 watch(img_swarplot, () => {console.log("hello new img?")})
 
 
 async function post_swarplot() {
   console.log("Swarmplot !!!", data_csv[0]);
-  // let datframe_json = data_csv.map(row => { return Object.fromEntries(Object.entries(row).filter(([k, v]) => Object.values([nom_elem, nom_classifier].values).includes(k))) });
-  // console.log("datframe_json", datframe_json);
-  // const { data: res } = await useFetch(bck_end_base_url+'/EDASwarmPlot', {
-  const { data: res } = await useFetch('http://127.0.0.1:3838'+'/EDASwarmPlot', {
+  const { data: res } = await useFetch(bck_end_base_url_+'/EDASwarmPlot', {
+  // const { data: res } = await useFetch('http://127.0.0.1:3838'+'/EDASwarmPlot', {
     method: 'POST',
     body: {"dataframe": data_csv, "nom_classifier": nom_classifier, "nom_elem": nom_elem},
     onResponse({ request, response, options }) {
-    // Process the response data
-    // img_swarplot = response
-    // console.log("104 response", response);
-    // console.log("104 response", response._data["fig"]);
-    img_swarplot.value = response._data["fig"];
+      img_swarplot.value = response._data["fig"];
     },
     onResponseError({ request, response, options }) {
       // Handle the response errors
   }
   });
-  // console.log("res loool")
-  // console.log(res.value)
-  // console.log(res.value["fig"])
-  // console.log("img_swarplot", img_swarplot)
-  // img_swarplot = res.value["fig"]
 }
 </script>
