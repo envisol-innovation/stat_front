@@ -16,7 +16,8 @@ export default defineNuxtConfig({
     }
   },
 
-  modules: ["vuetify-nuxt-module", '@sidebase/nuxt-auth'],
+  modules: ["vuetify-nuxt-module"],
+  // modules: ["vuetify-nuxt-module", '@sidebase/nuxt-auth'],
   // auth: {
   //   isEnabled: true,
   //   // disableServerSideAuth: false,
@@ -42,7 +43,6 @@ export default defineNuxtConfig({
     public: {
       apiBase: '/api',
       backend_url_public: process.env.BACKEND_BASE_URL
-    
     },
     privateRuntimeConfig: {
       backend_url: process.env.BACKEND_BASE_URL
