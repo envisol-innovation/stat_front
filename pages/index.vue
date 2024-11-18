@@ -27,11 +27,35 @@
 
   <div> Swarm plot </div>
 
-  <v-select v-model="nom_elem" :items="colonnes" label="Élément à analyser"> </v-select>
-  <v-select v-model="nom_classifier" :items="colonnes" label="Catégorie à analyser"> </v-select>
-  <v-btn color="success" @click="post_swarplot">Swarmplot !</v-btn>
-  <div v-if="img_swarplot != ''">
-    <img v-bind:src="`data:image/jpg;base64,${img_swarplot}`" />
+  <v-select v-model="swarmplot_nom_elem" :items="colonnes" label="Élément à analyser"> </v-select>
+  <v-select v-model="swarmplot_nom_classifier" :items="colonnes" label="Catégorie à analyser"> </v-select>
+  <v-btn color="success" @click="post_swarmplot">Swarmplot !</v-btn>
+  <div v-if="img_swarmplot != ''">
+    <img v-bind:src="`data:image/jpg;base64,${img_swarmplot}`" />
+  </div>
+
+  <div> Box plot </div>
+  
+  <!-- <v-select v-model="list_elements" :items="colonnes" label="Éléments à analyser"> </v-select> -->
+  <v-select v-model="boxplot_sum_element" :items="colonnes" label="Somme du type d'éléments à analyser"> </v-select>
+  <v-select v-model="selected_list_elements" :items="colonnes" label="Éléments à analyser" multiple>
+    <template v-slot:prepend-item>
+      <v-list-item @click="toggle">
+        <v-list-item-action>
+          <v-icon :color="selected_list_elements.length > 0 ? 'indigo darken-4' : ''"></v-icon>
+        </v-list-item-action>
+        <v-list-item-content>
+          <v-list-item-title>
+            Selectionner tous
+          </v-list-item-title>
+        </v-list-item-content>
+      </v-list-item>
+      <v-divider class="mt-2"></v-divider>
+    </template>
+  </v-select>
+  <v-btn color="success" @click="post_boxplot">Boxplot !</v-btn>
+  <div v-if="img_boxplot != ''">
+    <img v-bind:src="`data:image/jpg;base64,${img_boxplot}`" />
   </div>
 </template>
 
@@ -48,19 +72,19 @@ const files = ref([]);
 let colonnes = ref([""]);
 let data_csv: any[] = [];
 var filename = "";
-let ACP_selected_cols = ref([""]);
-var data = ref()
-watch(files, goFunc);
+let selected_list_elements = ref([""]);
+var data = ref();
+watch(files, Read_File);
 
 function toggle() {
-  if (ACP_selected_cols.value.length == colonnes.value.length) {
-    ACP_selected_cols.value = []
+  if (selected_list_elements.value.length == colonnes.value.length) {
+    selected_list_elements.value = []
   } else {
-    ACP_selected_cols.value = colonnes.value.slice()
+    selected_list_elements.value = colonnes.value.slice()
   }
 }
 
-function goFunc() {
+function Read_File() {
   console.log("file");
   console.log("file", files);
 
@@ -92,26 +116,31 @@ function goFunc() {
 //   console.log(res)
 // }
 
-let nom_elem = ref("");
-let nom_classifier = ref("");
-let img_swarplot = ref("")
-watch(img_swarplot, () => {console.log("hello new img?")})
+let swarmplot_nom_elem = ref("");
+let swarmplot_nom_classifier = ref("");
+let img_swarmplot = ref("")
+watch(img_swarmplot, () => {console.log("hello new img?")})
+
+let selected_list_elements = ref([""]);
+let boxplot_sum_element = ref("");
+let img_boxplot = ref("")
+watch(img_boxplot, () => {console.log("hello new box img?")})
 
 
-async function post_swarplot() {
+async function post_swarmplot() {
   console.log("Swarmplot !!!", data_csv[0]);
-  // let datframe_json = data_csv.map(row => { return Object.fromEntries(Object.entries(row).filter(([k, v]) => Object.values([nom_elem, nom_classifier].values).includes(k))) });
+  // let datframe_json = data_csv.map(row => { return Object.fromEntries(Object.entries(row).filter(([k, v]) => Object.values([swarmplot_nom_elem, swarmplot_nom_classifier].values).includes(k))) });
   // console.log("datframe_json", datframe_json);
   // const { data: res } = await useFetch(bck_end_base_url+'/EDASwarmPlot', {
   const { data: res } = await useFetch('http://127.0.0.1:3838'+'/EDASwarmPlot', {
     method: 'POST',
-    body: {"dataframe": data_csv, "nom_classifier": nom_classifier, "nom_elem": nom_elem},
+    body: {"dataframe": data_csv, "swarmplot_nom_classifier": swarmplot_nom_classifier, "swarmplot_nom_elem": swarmplot_nom_elem},
     onResponse({ request, response, options }) {
     // Process the response data
-    // img_swarplot = response
+    // img_swarmplot = response
     // console.log("104 response", response);
     // console.log("104 response", response._data["fig"]);
-    img_swarplot.value = response._data["fig"];
+    img_swarmplot.value = response._data["fig"];
     },
     onResponseError({ request, response, options }) {
       // Handle the response errors
@@ -120,7 +149,22 @@ async function post_swarplot() {
   // console.log("res loool")
   // console.log(res.value)
   // console.log(res.value["fig"])
-  // console.log("img_swarplot", img_swarplot)
-  // img_swarplot = res.value["fig"]
+  // console.log("img_swarmplot", img_swarmplot)
+  // img_swarmplot = res.value["fig"]
+}
+
+async function post_boxplot() {
+  console.log("Boxplot !!!", data_csv[0]);
+  // const { data: res } = await useFetch(bck_end_base_url+'/EDABoxPlot', {
+  const { data: res } = await useFetch('http://127.0.0.1:3838'+'/EDABoxPlot', {
+    method: 'POST',
+    body: {"dataframe": data_csv, "list_elements": selected_list_elements, "boxplot_sum_element": boxplot_sum_element},
+    onResponse({ request, response, options }) {
+    img_boxplot.value = response._data["fig"];
+    },
+    onResponseError({ request, response, options }) {
+      // Handle the response errors
+  }
+  });
 }
 </script>
