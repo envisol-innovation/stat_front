@@ -1,7 +1,7 @@
 <template>
     <div> Statistiques de base</div>
     <div>
-      <v-btn color="success" @click="post_stats_de_base">  </v-btn>
+      <v-btn color="success" @click="post_stats_de_base"> Statistiques de base </v-btn>
     </div>
     <div v-if="json_table_basic_stats != undefined">
       <v-data-table :items="json_table_basic_stats"></v-data-table>

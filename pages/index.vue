@@ -8,11 +8,11 @@
   </div>
 
   <div>
-    <Stats_de_base v-bind:data="data_csv"></Stats_de_base>
+    <Formulaire_stats_de_base v-bind:data="data_csv"></Formulaire_stats_de_base>
   </div>
 
   <div>
-    <Swarmplot_formulaire v-bind:data="data_csv" v-bind:colonnes="colonnes"></Swarmplot_formulaire>
+    <Formulaire_swarmplot v-bind:data="data_csv" v-bind:colonnes="colonnes"></Formulaire_swarmplot>
   </div>
 
   <div>
@@ -24,9 +24,9 @@
 
 <script setup lang="ts">
 import * as PaPa from 'papaparse';
-import Stats_de_base from './components/stats_de_base.vue';
-import Swarmplot_formulaire from './components/swarmplot_formulaire.vue';
+import Formulaire_swarmplot from './components/formulaire_swarmplot.vue';
 import Formulaire_boxplot from './components/formulaire_boxplot.vue';
+import Formulaire_stats_de_base from './components/formulaire_stats_de_base.vue';
 
 const runtimeConfig = useRuntimeConfig()
 const bck_end_base_url_ = runtimeConfig.public.backend_url_public;

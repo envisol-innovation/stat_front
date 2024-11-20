@@ -1,9 +1,28 @@
 # Welcome to the stat_front code!
-the files auth_config.json and .env should NEVER be versioned (they contain secret data)
 
-To run locally use
+Because they contain secret data, two files aren't versioned in this repository: auth_config.json and .env
+auth_config.json : contains authentication data
+.env contain notably the backend url
+
+They should NEVER be versioned (they contain secret data)
+
+
+To run locally the code needs node 18.20.4
+If you have more than one node version installed, use nvm like so in the terminal:
+1 to check the current version of node and which are available on your computer:
+nvm list
+2 to choose the correct one 
+nvm use 18.20.4
+
+then in the stats_front directory you should run the following commands in the terminal
 npm install
 npm run dev
+
+The url where the dev demo is running will appear in the terminal
+By default it will be: http://localhost:3000/
+
+For backend interaction to work, the variable BACKEND_URL should point to an active api
+
 
 The main branch sould only be for production code that is ready to be online
 
