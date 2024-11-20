@@ -22,6 +22,7 @@
     "@nuxtjs/vuetify": "^1.12.3",
     "@sidebase/nuxt-auth": "^0.9.3",
     "vite-plugin-vuetify": "^2.0.3",
-    "vuetify": "^3.6.5"
+    "vuetify": "^3.6.5",
+    "@types/papaparse": "^5.3.15"
   }
 }

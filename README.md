@@ -1,3 +1,14 @@
+# Welcome to the stat_front code!
+the files auth_config.json and .env should NEVER be versioned (they contain secret data)
+
+To run locally use
+npm install
+npm run dev
+
+The main branch sould only be for production code that is ready to be online
+
+
+
 # Nuxt 3 Minimal Starter
 
 Look at the [Nuxt 3 documentation](https://nuxt.com/docs/getting-started/introduction) to learn more.

@@ -12,14 +12,17 @@
 const runtimeConfig = useRuntimeConfig()
 const bck_end_base_url_ = runtimeConfig.public.backend_url_public;
 
-
+// This is definition of the parameters that parent component can pass to this component.
+// The type definition should be one of these: String, Number, Boolean, Array, or Object
+// If these need to be dynamic (if they change in the parent, they change in the child), they should be passed with the "v-bind" keyword (see index.vue)
+// also in the child component (here) the prop needs to be accessed from the props_from_parent object
+// for instance in the parent this component in used like this: <Stats_de_base v-bind:data="data_csv"></Stats_de_base>
 let props_from_parent = defineProps({
     data: {
-        type: [],
+        type: Array,
         required: true,
     },
 });
-let { data } = props_from_parent;
 
 
 let json_table_basic_stats = ref([]);
@@ -28,7 +31,7 @@ async function post_stats_de_base() {
   const { data: res } = await useFetch(bck_end_base_url_+'/BasicStatistics', {
   // const { data: res } = await useFetch('http://127.0.0.1:3838'+'/EDASwarmPlot', {
     method: 'POST',
-    body: {"dataframe": data},
+    body: {"dataframe": props_from_parent.data},
     onResponse({ request, response, options }) {
       json_table_basic_stats.value = response._data;
     },

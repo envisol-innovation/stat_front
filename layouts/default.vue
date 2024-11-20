@@ -7,12 +7,17 @@
       <v-list>
         <v-list-item>
           <v-btn>
-            Site
+            Statistiques de base
           </v-btn>
         </v-list-item>
         <v-list-item>
           <v-btn>
-            Result
+            Swarmplot
+          </v-btn>
+        </v-list-item>
+        <v-list-item>
+          <v-btn>
+            Boxplots
           </v-btn>
         </v-list-item>
       </v-list>
