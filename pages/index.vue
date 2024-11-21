@@ -1,21 +1,34 @@
 <template>
+  <v-navigation-drawer>
+    <v-list>
+      <v-list>
+        <v-list-item>
+          <v-switch v-model="show_stat_formulaire" color="primary" label="Statistiques de base"></v-switch>
+        </v-list-item>
+        <v-list-item>
+          <v-switch v-model="show_swarmplot" color="primary" label="Swarmplot"></v-switch>
+        </v-list-item>
+        <v-list-item>
+          <v-switch v-model="show_boxplot" color="primary" label="Boxplots"></v-switch>
+        </v-list-item>
+      </v-list>
+    </v-list>
+  </v-navigation-drawer>
+
+
   <div>
     <VFileInput v-model="files" label="Selectionner fichier"></VFileInput>
   </div>
-  <div>
-    Hello World!
-    {{ files.values }}
-  </div>
 
-  <div>
+  <div v-if="show_stat_formulaire">
     <Formulaire_stats_de_base v-bind:data="data_csv"></Formulaire_stats_de_base>
   </div>
 
-  <div>
+  <div v-if="show_swarmplot">
     <Formulaire_swarmplot v-bind:data="data_csv" v-bind:colonnes="colonnes"></Formulaire_swarmplot>
   </div>
 
-  <div>
+  <div v-if="show_boxplot">
     <Formulaire_boxplot v-bind:data="data_csv" v-bind:colonnes="colonnes"></Formulaire_boxplot>
   </div>
 
@@ -27,6 +40,11 @@ import * as PaPa from 'papaparse';
 import Formulaire_swarmplot from './components/formulaire_swarmplot.vue';
 import Formulaire_boxplot from './components/formulaire_boxplot.vue';
 import Formulaire_stats_de_base from './components/formulaire_stats_de_base.vue';
+
+let show_stat_formulaire = ref(true)
+let show_swarmplot = ref(false)
+let show_boxplot = ref(false)
+
 
 const runtimeConfig = useRuntimeConfig()
 const bck_end_base_url_ = runtimeConfig.public.backend_url_public;
@@ -42,7 +60,7 @@ watch(files, Read_File);
 function Read_File() {
 
   const csv_file = files.value[0];
-  // console.log("file", csv_file);
+  console.log("file", csv_file);
   let reader = new FileReader();
   reader.readAsText(csv_file);
   reader.onload = () => {

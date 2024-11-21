@@ -1,6 +1,12 @@
 <template>
-    <div> Swarmplot </div>
-
+    <h1> Swarmplot </h1>
+    <div>
+      Status = {{status_post}}
+      <v-progress-circular v-if="status_post == 'pending'"
+        color="green"
+        indeterminate
+      ></v-progress-circular>
+    </div>
     <v-select v-model="swarmplot_nom_elem" :items="props_from_parent.colonnes" label="Élément à analyser"> </v-select>
     <v-select v-model="swarmplot_nom_classifier" :items="props_from_parent.colonnes" label="Catégorie à analyser"> </v-select>
     <v-btn color="success" @click="post_swarmplot">Swarmplot !</v-btn>
@@ -31,9 +37,11 @@ let swarmplot_nom_elem = ref("");
 let swarmplot_nom_classifier = ref("");
 let img_swarmplot = ref("")
 
+let status_post = ref();
+
 
 async function post_swarmplot() {
-  const { data: res } = await useFetch(bck_end_base_url_+'/EDASwarmPlot', {
+  const { data: res, status } = await useFetch(bck_end_base_url_+'/EDASwarmPlot', {
     method: 'POST',
     body: {"dataframe": props_from_parent.data, "nom_classifier": swarmplot_nom_classifier, "nom_elem": swarmplot_nom_elem},
     onResponse({ request, response, options }) {
@@ -43,5 +51,7 @@ async function post_swarmplot() {
       // Handle the response errors
     }
   });
+  status_post.value = status
+
 }
 </script>

@@ -1,9 +1,16 @@
 <template>
-    <div> Boxplot </div>
-  
+    <h1> Boxplot : Contribution des composés à leur somme </h1>
+    <div>
+      Status = {{status_post}}
+      <v-progress-circular v-if="status_post == 'pending'"
+        color="green"
+        indeterminate
+      ></v-progress-circular>
+    </div>
+    
     <!-- <v-select v-model="list_elements" :items="colonnes" label="Éléments à analyser"> </v-select> -->
-    <v-select v-model="boxplot_sum_element" :items="props_from_parent.colonnes" label="Somme du type d'éléments à analyser"> </v-select>
-    <v-select v-model="selected_list_elements" :items="props_from_parent.colonnes" label="Éléments à analyser" multiple>
+    <v-select v-model="boxplot_sum_element" :items="props_from_parent.colonnes" label="Somme à analyser"> </v-select>
+    <v-select v-model="selected_list_elements" :items="props_from_parent.colonnes" label="Éléments dans la somme à analyser" multiple>
       <template v-slot:prepend-item>
         <v-list-item @click="toggle">
           <v-list-item-action>
@@ -57,8 +64,11 @@ let props_from_parent = defineProps({
 let boxplot_sum_element = ref("");
 let img_boxplot = ref("")
 
+let status_post = ref()
+watch(status_post, ()=>{console.log("status_post", status_post)})
+
 async function post_boxplot() {
-  const { data: res } = await useFetch(bck_end_base_url_+'/EDABoxPlot', {
+  const { data, status } = await useFetch(bck_end_base_url_+'/EDABoxPlot', {
     method: 'POST',
     body: {"dataframe": props_from_parent.data, "list_elements": selected_list_elements, "sum_element": boxplot_sum_element},
     onResponse({ request, response, options }) {
@@ -67,6 +77,9 @@ async function post_boxplot() {
     onResponseError({ request, response, options }) {
       // Handle the response errors
   }
+ 
+
   });
+  status_post.value = status
 }
 </script>

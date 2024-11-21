@@ -3,7 +3,7 @@
     <v-app-bar color="primary">
       Envisol-stats
     </v-app-bar>
-    <v-navigation-drawer>
+    <!-- <v-navigation-drawer>
       <v-list>
         <v-list-item>
           <v-btn>
@@ -21,7 +21,7 @@
           </v-btn>
         </v-list-item>
       </v-list>
-      <!-- <ul>
+       <ul>
         <li>
           <button @click="signIn('auth0')">Login</button>
         </li>
@@ -106,7 +106,7 @@
           </li>
         </ul>
       </div> -->
-    </v-navigation-drawer>
+    <!-- </v-navigation-drawer> -->
     <v-main>
       <NuxtPage />
     </v-main>
