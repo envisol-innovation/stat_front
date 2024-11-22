@@ -1,11 +1,5 @@
 <template>
     <h1> Boxplot : Contribution des composés à leur somme </h1>
-    <div>
-      <v-progress-circular v-if="status_post.value == 'pending'"
-        color="green"
-        indeterminate
-      ></v-progress-circular>
-    </div>
     
     <!-- <v-select v-model="list_elements" :items="colonnes" label="Éléments à analyser"> </v-select> -->
     <v-select v-model="boxplot_sum_element" :items="props_from_parent.colonnes" label="Somme à analyser"> </v-select>
@@ -26,7 +20,16 @@
     </v-select>
   
     <v-btn color="success" @click="post_boxplot">Boxplot !</v-btn>
-    <div v-if="img_boxplot != ''">
+
+    <div v-if="status_post">
+      <!-- Status = {{status_post}} {{ typeof(status_post.value) }} {{ status_post.value == 'pending' }} -->
+      <v-progress-circular v-if="status_post == 'pending'"
+        color="green"
+        indeterminate
+      ></v-progress-circular>
+    </div>
+
+    <div v-if="img_boxplot != '' && status_post.value != 'pending'">
       <img v-bind:src="`data:image/jpg;base64,${img_boxplot}`" />
     </div>
 </template>
@@ -63,16 +66,13 @@ let props_from_parent = defineProps({
 let boxplot_sum_element = ref("");
 let img_boxplot = ref("")
 
-
 let status_post = ref()
 watch(status_post, ()=>{console.log("status_post", status_post)})
-
-console.log(boxplot_sum_element)
 
 async function post_boxplot() {
   const { data, status } = await useFetch(bck_end_base_url_+'/EDABoxPlot', {
     method: 'POST',
-    body: {"dataframe": props_from_parent.data, "list_elements": selected_list_elements, "sum_element": boxplot_sum_element},
+    body: {"dataframe": props_from_parent.data, "list_elements": selected_list_elements.value, "sum_element": boxplot_sum_element.value},
     onResponse({ request, response, options }) {
       img_boxplot.value = response._data["fig"];
     },

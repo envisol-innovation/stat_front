@@ -1,16 +1,15 @@
 <template>
     <h1> Statistiques de base</h1>
     <div>
-      <v-progress-circular v-if="status_post?.valueOf() == 'pending'"
-        color="green"
-        indeterminate
-      ></v-progress-circular>
+      <div v-if="status_post">
+        <v-progress-circular v-if="status_post == 'pending'"
+          color="green"
+          indeterminate
+        ></v-progress-circular>
+      </div>
       <v-btn color="success" @click="post_stats_de_base"> Statistiques de base </v-btn>
-      <v-switch v-if="json_table_basic_stats != undefined" v-model="show" color="primary"
-      label="Afficher"
-      hide-details></v-switch>
     </div>
-    <div v-if="json_table_basic_stats != undefined && show">
+    <div v-if="json_table_basic_stats != undefined && status_post && status_post.value != 'pending'">
       <v-data-table :items="json_table_basic_stats"></v-data-table>
     </div>
 </template>
@@ -19,8 +18,7 @@
 const runtimeConfig = useRuntimeConfig()
 const bck_end_base_url_ = runtimeConfig.public.backend_url_public;
 
-let show = ref(true);
-let status_post : Ref<"idle" | "pending" | "success" | "error" | undefined> = ref("idle");
+let status_post = ref("");
 
 // This is definition of the parameters that parent component can pass to this component.
 // The type definition should be one of these: String, Number, Boolean, Array, or Object
@@ -51,7 +49,6 @@ async function post_stats_de_base() {
     }
   });
   status_post.value = status.value
-
 }
 
 </script>

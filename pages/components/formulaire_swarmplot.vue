@@ -6,7 +6,7 @@
     <v-btn color="success" @click="post_swarmplot">Swarmplot !</v-btn>
 
 
-    <div>
+    <div v-if="status_post">
       <v-progress-circular v-if="status_post.value == 'pending'"
         color="green"
         indeterminate
@@ -14,7 +14,7 @@
       ></v-progress-circular>
     </div>
 
-    <div v-if="img_swarmplot != '' && status_post.value == 'success'">
+    <div v-if="img_swarmplot != '' && status_post.value != 'pending'">
       <img v-bind:src="`data:image/jpg;base64,${img_swarmplot}`" />
     </div>
 

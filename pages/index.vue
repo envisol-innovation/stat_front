@@ -15,6 +15,14 @@
     </v-list>
   </v-navigation-drawer>
 
+  <div>
+    Bienvenue sur l'interface stats !
+    Le fichier donné sera traité comme suit :
+      - "nd", "<" sont transformé en 0
+      - "na" et "-" sont considérés comme non analysé
+    Tout autre texte ("non analysé" par exemple) n'est pas pis en compte et faussera les résultats !
+  </div>
+
 
   <div>
     <VFileInput v-model="files" label="Selectionner fichier"></VFileInput>
