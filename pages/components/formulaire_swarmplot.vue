@@ -1,16 +1,20 @@
 <template>
     <h1> Swarmplot </h1>
-    <div>
-      Status = {{status_post}}
-      <v-progress-circular v-if="status_post == 'pending'"
-        color="green"
-        indeterminate
-      ></v-progress-circular>
-    </div>
+
     <v-select v-model="swarmplot_nom_elem" :items="props_from_parent.colonnes" label="Élément à analyser"> </v-select>
     <v-select v-model="swarmplot_nom_classifier" :items="props_from_parent.colonnes" label="Catégorie à analyser"> </v-select>
     <v-btn color="success" @click="post_swarmplot">Swarmplot !</v-btn>
-    <div v-if="img_swarmplot != ''">
+
+
+    <div>
+      <v-progress-circular v-if="status_post.value == 'pending'"
+        color="green"
+        indeterminate
+        size="50"
+      ></v-progress-circular>
+    </div>
+
+    <div v-if="img_swarmplot != '' && status_post.value == 'success'">
       <img v-bind:src="`data:image/jpg;base64,${img_swarmplot}`" />
     </div>
 

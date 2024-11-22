@@ -1,8 +1,7 @@
 <template>
     <h1> Boxplot : Contribution des composés à leur somme </h1>
     <div>
-      Status = {{status_post}}
-      <v-progress-circular v-if="status_post == 'pending'"
+      <v-progress-circular v-if="status_post.value == 'pending'"
         color="green"
         indeterminate
       ></v-progress-circular>
@@ -64,8 +63,11 @@ let props_from_parent = defineProps({
 let boxplot_sum_element = ref("");
 let img_boxplot = ref("")
 
+
 let status_post = ref()
 watch(status_post, ()=>{console.log("status_post", status_post)})
+
+console.log(boxplot_sum_element)
 
 async function post_boxplot() {
   const { data, status } = await useFetch(bck_end_base_url_+'/EDABoxPlot', {
