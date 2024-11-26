@@ -20,6 +20,8 @@ const bck_end_base_url_ = runtimeConfig.public.backend_url_public;
 
 let status_post = ref("");
 
+// This is kept to have an exemple of how to pass properties to a component. in the rest of the code, a store is used.
+
 // This is definition of the parameters that parent component can pass to this component.
 // The type definition should be one of these: String, Number, Boolean, Array, or Object
 // If these need to be dynamic (if they change in the parent, they change in the child), they should be passed with the "v-bind" keyword (see index.vue)
