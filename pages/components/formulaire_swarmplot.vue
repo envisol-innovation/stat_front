@@ -3,7 +3,7 @@
 
     <v-select v-model="swarmplot_nom_elem" :items="store.colonnes" label="Élément à analyser"> </v-select>
     <v-select v-model="swarmplot_nom_classifier" :items="store.colonnes" label="Catégorie à analyser"> </v-select>
-    <v-btn color="success" @click="post_swarmplot">Swarmplot !</v-btn>
+    <v-btn color="primary" @click="post_swarmplot">Swarmplot !</v-btn>
 
 
     <div v-if="status_post">
@@ -15,12 +15,13 @@
     </div>
 
     <div v-if="img_swarmplot != '' && status_post.value != 'pending'">
-      <img v-bind:src="`data:image/jpg;base64,${img_swarmplot}`" />
+      <NuxtImg sizes="sm:600px md:760px lg:1200px xl:1200px" v-bind:src="`data:image/jpg;base64,${img_swarmplot}`" />
     </div>
 
 </template>
 
 <script setup lang="ts">
+// import { NuxtImg } from '#build/components';
 import { useMyData_and_resultsStore } from '#build/imports';
 
 const store = useMyData_and_resultsStore();

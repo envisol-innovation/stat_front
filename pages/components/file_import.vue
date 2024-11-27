@@ -5,13 +5,13 @@
   <div v-if="weird_colonnes.length != 0">
     <v-expansion-panels>
       <v-expansion-panel>
-        <v-expansion-panel-title>Colonnes potentiellement problématiques : {{weird_colonnes.length}}</v-expansion-panel-title>
+        <v-expansion-panel-title>Alertes : {{weird_colonnes.length}}</v-expansion-panel-title>
         <v-expansion-panel-text>
-          Les colonnes ci dessous contiennent à la fois du texte et des nombres ; Si vous les reconnaissez comme des colonnes textes
-          (nom des sondages par exemple) vous pouvez ignorer ce message.<br>
-          Si ces colonnes ne devraient contenir que des nombres (des concentrations par example), 
-          il est possible qu'elles contiennent du texte non pris en compte par le traitement (voir les texte pris en compte ci-dessus).
-          Si c'est le cas, les statistiques et figures concernant ces colonnes seront faussées. Il faut donc vérifié le fichier d'entrée.
+          Les colonnes listées contiennent à la fois du texte et des nombres. Si vous les reconnaissez comme des colonnes textes
+          (nom des sondages par exemple) vous pouvez ignorer ce message.
+          Si ces colonnes ne devraient contenir que des nombres (des concentrations par exemple), 
+          il est possible qu'elles contiennent du texte non pris en compte par le traitement.
+          Si c'est le cas, les statistiques et figures concernant ces colonnes seront faussées.<br><br>Veulliez vérifier le fichier d'entrée.<br><br>
           Colonnes potentiellement problématiques :
           <div v-for="c in weird_colonnes">
             - {{c['col_name']}}

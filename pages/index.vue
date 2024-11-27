@@ -19,9 +19,10 @@
 
     <v-card>
       <v-card-text>
-        <H1>Bienvenue sur l'interface pour l'analyse exploratoire de données !</H1>
+        <!-- Maybe this should be hidable? -->
+        <h1>Bienvenue sur l'interface pour l'analyse exploratoire de données !</h1>
         Le fichier donné sera traité comme suit :<br>
-        - "nd", "<" sont transformé en 0<br>
+        - "nd", "<" sont transformés en 0<br>
         - "na" et "-" sont considérés comme non analysé<br>
         Tout autre texte ("non analysé" par exemple) n'est pas pris en compte et faussera les résultats !<br>
       </v-card-text>

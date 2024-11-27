@@ -1,7 +1,12 @@
 <template>
   <v-app>
     <v-app-bar color="primary">
-      Envisol-stats: Testing
+      <div v-if="mode == 'dev'">
+        Envisol test
+      </div>
+      <div v-else>
+        <NuxtImg src="/2024_Logo_blanc_sans_site.png" height="60" contain ></NuxtImg>
+      </div>
     </v-app-bar>
     <!-- <v-navigation-drawer>
       <v-list>
@@ -113,6 +118,11 @@
   </v-app>
 </template>
 <script setup lang="ts">
+
+const runtimeConfig = useRuntimeConfig()
+const mode = runtimeConfig.public.mode;
+
+
 
 // const {
 //   status,

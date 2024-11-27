@@ -1,4 +1,3 @@
-
 import 'dotenv/config'
 
 export default defineNuxtConfig({
@@ -11,12 +10,26 @@ export default defineNuxtConfig({
   vuetify: {
     vuetifyOptions: {
       theme: {
-        defaultTheme: 'dark'
+        themes: {
+          test_theme:{
+            dark: true,
+            colors: {
+              primary: '#b71c1c'
+            }
+          },
+          prod_theme:{
+            dark: true,
+            colors: {
+              primary: '#84BC28'
+            }
+          }
+          },
+        defaultTheme: process.env.MODE=='prod'? 'prod_theme' : 'test_theme',
       }
     }
   },
 
-  modules: ["vuetify-nuxt-module", "@pinia/nuxt"],
+  modules: ["vuetify-nuxt-module", "@pinia/nuxt", "@nuxt/image"],
   // modules: ["vuetify-nuxt-module", '@sidebase/nuxt-auth'],
   // auth: {
   //   isEnabled: true,
@@ -42,7 +55,8 @@ export default defineNuxtConfig({
     // Keys within public, will be also exposed to the client-side
     public: {
       apiBase: '/api',
-      backend_url_public: process.env.BACKEND_BASE_URL
+      backend_url_public: process.env.BACKEND_BASE_URL,
+      mode: process.env.MODE
     },
     privateRuntimeConfig: {
       backend_url: process.env.BACKEND_BASE_URL
