@@ -12,10 +12,10 @@
           <v-list-item-content>
             <v-list-item-title>
               <div v-if="selected_list_elements.length == store.colonnes.length">
-                Deselectionner tout
+                Désélectionner tout
               </div>
               <div v-else>
-                Selectionner tout
+                Sélectionner tout
               </div>
             </v-list-item-title>
           </v-list-item-content>
@@ -24,7 +24,7 @@
       </template>
     </v-select>
   
-    <v-btn color="success" @click="post_boxplot">Boxplot !</v-btn>
+    <v-btn color="primary" @click="post_boxplot">Boxplot !</v-btn>
 
     <div v-if="status_post">
       <!-- Status = {{status_post}} {{ typeof(status_post.value) }} {{ status_post.value == 'pending' }} -->
@@ -35,7 +35,7 @@
     </div>
 
     <div v-if="img_boxplot != '' && status_post.value != 'pending'">
-      <img v-bind:src="`data:image/jpg;base64,${img_boxplot}`" />
+      <NuxtImg sizes="sm:600px md:760px lg:1200px xl:1200px" v-bind:src="`data:image/jpg;base64,${img_boxplot}`" />
     </div>
 </template>
 

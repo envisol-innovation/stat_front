@@ -7,7 +7,7 @@
           indeterminate
         ></v-progress-circular>
       </div>
-      <v-btn color="success" @click="post_stats_de_base"> Statistiques de base </v-btn>
+      <v-btn color="primary" @click="post_stats_de_base"> Statistiques de base </v-btn>
     </div>
     <div v-if="json_table_basic_stats != undefined && status_post && status_post.value != 'pending'">
       <v-data-table :items="json_table_basic_stats"></v-data-table>

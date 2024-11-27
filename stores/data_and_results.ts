@@ -14,11 +14,16 @@ export const useMyData_and_resultsStore = defineStore({
 
     add_result(result: Resultats) {
       this.results.push(result)
+    },
+
+    get_relevant_resultat(endpoint_: string) {
+      const relevant_res = this.results.filter((value) => value.endpoint_called == endpoint_)
+      return relevant_res[relevant_res.length - 1]
     }
   }
 })
 
-
+// TODO: Add the logic in the components so that if the data file hasn't changed, the last result is displayed on opening the component
 class Resultats {
   endpoint_called: string;
   parameters: Object;
@@ -30,10 +35,10 @@ class Resultats {
     this.parameters = parameters;
     this.result = result
     this.name_fig = name_fig
-  }
+  };
 
   make_name_for_export() {
     return this.endpoint_called + this.name_fig
-  }
+  };
 
 }
