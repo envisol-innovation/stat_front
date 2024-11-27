@@ -1,7 +1,7 @@
 <template>
   <v-app>
     <v-app-bar color="primary">
-      Envisol-stats
+      Envisol-stats: Testing
     </v-app-bar>
     <!-- <v-navigation-drawer>
       <v-list>
