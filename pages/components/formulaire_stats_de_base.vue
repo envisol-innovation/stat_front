@@ -10,7 +10,7 @@
       <v-btn color="primary" @click="post_stats_de_base"> Statistiques de base </v-btn>
     </div>
     <div v-if="json_table_basic_stats != undefined && status_post && status_post != 'pending'">
-      <v-data-table :items="json_table_basic_stats"></v-data-table>
+      <v-data-table :headers="headers_from_back" :items="json_table_basic_stats"></v-data-table>
     </div>
 </template>
 
@@ -34,7 +34,7 @@ let props_from_parent = defineProps({
     },
 });
 
-
+let headers_from_back = ref([]);
 let json_table_basic_stats = ref([]);
 
 async function post_stats_de_base() {
@@ -44,7 +44,13 @@ async function post_stats_de_base() {
     body: {"dataframe": props_from_parent.data},
     onResponse({ request, response, options }) {
       console.log("response._data", response._data);
-      json_table_basic_stats.value = response._data;
+      let colonnes_dict = response._data["colonnes_dict"];
+      console.log("colonnes_dict", colonnes_dict)
+      colonnes_dict = colonnes_dict.sort((a, b) => {return a.pos - b.pos})
+      headers_from_back.value = colonnes_dict.map(({nv_nom, nom}) => {return {title: nv_nom, value: nom}});
+      console.log("headers_from_back", headers_from_back);
+      json_table_basic_stats.value = response._data["list_stats"]
+
     },
     onResponseError({ request, response, options }) {
       console.log(116, "this bugged:", response)

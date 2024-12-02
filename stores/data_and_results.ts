@@ -2,7 +2,10 @@ import { defineStore } from 'pinia'
 
 export const useMyData_and_resultsStore = defineStore({
   id: 'myData_and_resultsStore',
-  state: () => ({data_csv: [] as unknown[], colonnes: [] as string[], results: [] as Resultat[]}),
+  state: () => ({data_csv: [] as unknown[], colonnes: [] as string[], results: [
+    // new Resultat("EDASwarmPlot", {"swarmplot_nom_elem": "", "swarmplot_nom_classifier": ""}, "", ""),
+    // new Resultat("EDABoxPlot", {"boxplot_sum_element": "", "selected_list_elements": ""}, "", "")
+  ] as Resultat[]}),
   actions: {
     set_data_csv(new_data_csv: []) {
       this.data_csv = new_data_csv
@@ -42,3 +45,5 @@ export class Resultat {
   };
 
 }
+
+// type Parameters : 
