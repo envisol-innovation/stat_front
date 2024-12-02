@@ -8,7 +8,7 @@
         ></v-progress-circular>
       </div>
       <v-btn color="primary" @click="post_stats_de_base"> Statistiques de base </v-btn>
-      <v-btn color="primary" @click="downloadBlob"> Enregistrer sous </v-btn>
+      <v-btn v-if="status_post" color="primary" @click="downloadBlob"> Enregistrer sous </v-btn>
 
     </div>
     <div v-if="json_table_basic_stats != undefined && status_post && status_post != 'pending'">
