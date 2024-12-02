@@ -2,7 +2,7 @@ import { defineStore } from 'pinia'
 
 export const useMyData_and_resultsStore = defineStore({
   id: 'myData_and_resultsStore',
-  state: () => ({data_csv: [] as unknown[], colonnes: [] as string[], results: [] as Resultats[]}),
+  state: () => ({data_csv: [] as unknown[], colonnes: [] as string[], results: [] as Resultat[]}),
   actions: {
     set_data_csv(new_data_csv: []) {
       this.data_csv = new_data_csv
@@ -12,7 +12,7 @@ export const useMyData_and_resultsStore = defineStore({
       this.colonnes = new_colonnes
     },
 
-    add_result(result: Resultats) {
+    add_result(result: Resultat) {
       this.results.push(result)
     },
 
@@ -24,7 +24,7 @@ export const useMyData_and_resultsStore = defineStore({
 })
 
 // TODO: Add the logic in the components so that if the data file hasn't changed, the last result is displayed on opening the component
-class Resultats {
+export class Resultat {
   endpoint_called: string;
   parameters: Object;
   result: string;
@@ -33,8 +33,8 @@ class Resultats {
   constructor(endpoint_called: string, parameters: Object, result: string, name_fig: string) {
     this.endpoint_called = endpoint_called;
     this.parameters = parameters;
-    this.result = result
-    this.name_fig = name_fig
+    this.result = result;
+    this.name_fig = name_fig;
   };
 
   make_name_for_export() {
