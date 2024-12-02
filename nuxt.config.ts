@@ -30,6 +30,7 @@ export default defineNuxtConfig({
   },
 
   modules: ["vuetify-nuxt-module", "@pinia/nuxt", "@nuxt/image"],
+
   // modules: ["vuetify-nuxt-module", '@sidebase/nuxt-auth'],
   // auth: {
   //   isEnabled: true,
@@ -40,7 +41,7 @@ export default defineNuxtConfig({
   //   provider: {
   //     type: 'authjs',
   //     defaultProvider: 'auth0',
-      
+
   //   },
   //   sessionRefresh: {
   //     enablePeriodically: true,
@@ -61,5 +62,7 @@ export default defineNuxtConfig({
     privateRuntimeConfig: {
       backend_url: process.env.BACKEND_BASE_URL
     }
-  }
+  },
+
+  compatibilityDate: '2024-11-27'
 })
