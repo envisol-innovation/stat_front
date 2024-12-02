@@ -8,6 +8,8 @@
         ></v-progress-circular>
       </div>
       <v-btn color="primary" @click="post_stats_de_base"> Statistiques de base </v-btn>
+      <v-btn color="primary" @click="downloadBlob"> Enregistrer sous </v-btn>
+
     </div>
     <div v-if="json_table_basic_stats != undefined && status_post && status_post != 'pending'">
       <v-data-table :headers="headers_from_back" :items="json_table_basic_stats"></v-data-table>
@@ -15,6 +17,8 @@
 </template>
 
 <script setup lang="ts">
+import * as PaPa from 'papaparse';
+
 const runtimeConfig = useRuntimeConfig()
 const bck_end_base_url_ = runtimeConfig.public.backend_url_public;
 
@@ -58,6 +62,52 @@ async function post_stats_de_base() {
     }
   });
   status_post.value = status.value
+};
+
+
+
+/**
+ * Download contents as a file
+ * Source: https://stackoverflow.com/questions/14964035/how-to-export-javascript-array-info-to-csv-on-client-side
+ */
+ function downloadBlob() {
+  // fixed content for now
+  const content = arrayToCsv(json_table_basic_stats.value)
+
+  // fixed filename for now
+  const filename = 'export_statistiques_de_base.csv'
+
+  // Fixed content type for now
+  const contentType = 'text/csv;charset=utf-8;'
+
+  // Create a blob
+  var blob = new Blob([content], { type: contentType });
+  var url = URL.createObjectURL(blob);
+
+  // Create a link to download it
+  var pom = document.createElement('a');
+  pom.href = url;
+  pom.setAttribute('download', filename);
+  pom.click();
+};
+
+
+/**
+ * Convert a 2D array into a CSV string
+ */
+ function arrayToCsv(data){
+  console.log("data in array to csv", data);
+  let unparsed_data = PaPa.unparse(data, {delimiter: ";"});
+  console.log("unparsed_data", unparsed_data);
+  return unparsed_data
+  // return data.map(row =>
+  //   row
+  //   .map(String)  // convert every value to String
+  //   .map(v => v.replaceAll('"', '""'))  // escape double quotes
+  //   .map(v => `"${v}"`)  // quote it
+  //   .join(',')  // comma-separated
+  // ).join('\r\n');  // rows starting on new lines
 }
+
 
 </script>
