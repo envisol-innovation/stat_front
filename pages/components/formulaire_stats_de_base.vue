@@ -43,18 +43,16 @@ let json_table_basic_stats = ref([]);
 
 async function post_stats_de_base() {
   const { data: res, status } = await useFetch(bck_end_base_url_+'/BasicStatistics', {
-  // const { data: res } = await useFetch('http://127.0.0.1:3838'+'/EDASwarmPlot', {
     method: 'POST',
     body: {"dataframe": props_from_parent.data},
     onResponse({ request, response, options }) {
       console.log("response._data", response._data);
       let colonnes_dict = response._data["colonnes_dict"];
       console.log("colonnes_dict", colonnes_dict)
-      colonnes_dict = colonnes_dict.sort((a, b) => {return a.pos - b.pos})
+      colonnes_dict = colonnes_dict.sort((a: { pos: number; }, b: { pos: number; }) => {return a.pos - b.pos})
       headers_from_back.value = colonnes_dict.map(({nv_nom, nom}) => {return {title: nv_nom, value: nom}});
       console.log("headers_from_back", headers_from_back);
       json_table_basic_stats.value = response._data["list_stats"]
-
     },
     onResponseError({ request, response, options }) {
       console.log(116, "this bugged:", response)
