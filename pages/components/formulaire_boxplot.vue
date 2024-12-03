@@ -44,6 +44,7 @@ import { useMyData_and_resultsStore } from '#build/imports';
 
 const store = useMyData_and_resultsStore()
 
+
 const runtimeConfig = useRuntimeConfig()
 const bck_end_base_url_ = runtimeConfig.public.backend_url_public;
 

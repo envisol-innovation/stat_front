@@ -42,7 +42,7 @@
   </div>
 
   <div v-if="show_swarmplot">
-    <Formulaire_swarmplot v-bind:data="store.data_csv" v-bind:colonnes="store.colonnes"></Formulaire_swarmplot>
+    <Formulaire_swarmplot></Formulaire_swarmplot>
   </div>
 
   <div v-if="show_boxplot">
