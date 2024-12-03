@@ -3,15 +3,15 @@
     
     <!-- <v-select v-model="list_elements" :items="colonnes" label="Éléments à analyser"> </v-select> -->
     <v-select v-model="boxplot_sum_element" :items="store.colonnes" label="Somme à analyser"> </v-select>
-    <v-select v-model="selected_list_elements" :items="store.colonnes" label="Éléments dans la somme à analyser" multiple>
+    <v-select v-model="boxplot_selected_list_elements" :items="store.colonnes" label="Éléments dans la somme à analyser" multiple>
       <template v-slot:prepend-item>
         <v-list-item @click="toggle">
           <v-list-item-action>
-            <v-icon :color="selected_list_elements.length > 0 ? 'indigo darken-4' : ''"></v-icon>
+            <v-icon :color="boxplot_selected_list_elements.length > 0 ? 'indigo darken-4' : ''"></v-icon>
           </v-list-item-action>
           <v-list-item-content>
             <v-list-item-title>
-              <div v-if="selected_list_elements.length == store.colonnes.length">
+              <div v-if="boxplot_selected_list_elements.length == store.colonnes.length">
                 Désélectionner tout
               </div>
               <div v-else>
@@ -29,12 +29,12 @@
     <div v-if="status_post">
       <!-- Status = {{status_post}} {{ typeof(status_post.value) }} {{ status_post.value == 'pending' }} -->
       <v-progress-circular v-if="status_post == 'pending'"
-        color="green"
+        color="primary" size="50" width="12"
         indeterminate
       ></v-progress-circular>
     </div>
 
-    <div v-if="img_boxplot != '' && status_post.value != 'pending'">
+    <div v-if="img_boxplot != '' && status_post != 'pending'">
       <NuxtImg sizes="sm:600px md:760px lg:1200px xl:1200px" v-bind:src="`data:image/jpg;base64,${img_boxplot}`" />
     </div>
 </template>
@@ -42,52 +42,66 @@
 <script setup lang="ts">
 import { useMyData_and_resultsStore } from '#build/imports';
 
-const store = useMyData_and_resultsStore()
-
 
 const runtimeConfig = useRuntimeConfig()
 const bck_end_base_url_ = runtimeConfig.public.backend_url_public;
 
-let selected_list_elements : Ref<Array<string>> = ref([]);
+const store = useMyData_and_resultsStore()
 
-// this should probably be refactored somewhere
-function toggle() {
-  if (selected_list_elements.value.length == store.colonnes.length) {
-    selected_list_elements.value = []
-  } else {
-    selected_list_elements.value = store.colonnes.slice()
-  }
-}
+const endpoint_name = "/EDABoxPlot"
 
+const init_boxplot = store.get_relevant_resultat(endpoint_name) ;
+const init_boxplot_params = init_boxplot.parameters ;
 
-let boxplot_sum_element = ref("");
-let img_boxplot = ref("")
+// this mess below is so the compiler knows that boxplot_selected_list_elements is not undefined and thus can call the "length" param in the toggle function
+// the "as string[]" is to reassure it that even though boxplot_selected_list_elements is optional on the Parameters type, I'll be careful that it's defined
+// before calling it here
+const boxplot_selected_list_elements : Ref<Array<string>> = ref(init_boxplot_params.boxplot_selected_list_elements as string[]); 
+const boxplot_sum_element = ref(init_boxplot_params.boxplot_sum_element);
+const img_boxplot = ref(init_boxplot.result)
 
-let status_post = ref()
-watch(status_post, ()=>{console.log("status_post", status_post)})
+let status_post = ref("")
 
 async function post_boxplot() {
-  const { data, status } = await useFetch(bck_end_base_url_+'/EDABoxPlot', {
+  const { data, status } = await useFetch(bck_end_base_url_ + endpoint_name, {
     method: 'POST',
-    body: {"dataframe": store.data_csv, "list_elements": selected_list_elements.value, "sum_element": boxplot_sum_element.value},
+    body: {"dataframe": store.data_csv, "list_elements": boxplot_selected_list_elements.value, "sum_element": boxplot_sum_element.value},
+    onRequest({}) {
+      status_post.value = "pending";
+    },
     onResponse({ request, response, options }) {
       img_boxplot.value = response._data["fig"];
+      const res = new Resultat(
+        endpoint_name,
+        { "boxplot_selected_list_elements": boxplot_selected_list_elements.value, "boxplot_sum_element": boxplot_sum_element.value },
+        response._data["fig"],
+        response._data["name_fig"]
+      );
+      store.add_result(res);
+      status_post.value = "done";
     },
     onResponseError({ request, response, options }) {
       // Handle the response errors
       console.log("ERROR in post boxplot: ", response)
     }
   });
-  status_post.value = status
 }
 
 
 watch(() => store.data_csv, () => {reset_everything()});
 
 function reset_everything() {
-  selected_list_elements.value = [];
-  img_boxplot.value = "";
+  boxplot_selected_list_elements.value = [];
+  boxplot_sum_element.value = "";
   img_boxplot.value = "";
 }
 
+// this should probably be refactored somewhere
+function toggle() {
+  if (boxplot_selected_list_elements.value.length == store.colonnes.length) {
+    boxplot_selected_list_elements.value = []
+  } else {
+    boxplot_selected_list_elements.value = store.colonnes.slice()
+  }
+}
 </script>

@@ -37,7 +37,7 @@ export const useMyData_and_resultsStore = defineStore({
       const relevant_res = this.results.filter((value) => value.endpoint_called == endpoint_);
       console.log("relevant_res", relevant_res);
       if (relevant_res.length == 0) {
-        return new Resultat(endpoint_, {swarmplot_nom_classifier: "", swarmplot_nom_elem:"", boxplot_sum_element:"", boxplot_list_elements: [""]}, "", "")
+        return new Resultat(endpoint_, {swarmplot_nom_classifier: "", swarmplot_nom_elem:"", boxplot_sum_element:"", boxplot_selected_list_elements: [""]}, "", "")
       }
       else {
         return relevant_res[relevant_res.length - 1]
@@ -70,7 +70,7 @@ type Parameters = {
   swarmplot_nom_elem?: string;
   swarmplot_nom_classifier?: string;
   boxplot_sum_element?: string;
-  boxplot_list_elements?: Array<string>;
+  boxplot_selected_list_elements?: Array<string>;
 }
 
 // type ParametersBoxplot = {

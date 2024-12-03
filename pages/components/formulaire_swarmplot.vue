@@ -5,12 +5,9 @@
   <v-select v-model="swarmplot_nom_classifier" :items="store.colonnes" label="Catégorie à analyser"> </v-select>
   <v-btn color="primary" @click="post_swarmplot">Swarmplot !</v-btn>
 
-  <div>   {{ status_post }} hey tgrgtrez  {{status_post}}</div>
-  <div>   {{ status_post == "pending" }} hey tgrgtrez  {{status_post == 'pending'}}</div>
   <div v-if="status_post == 'pending'">
-    <div>bbbbbbbbbbb</div>
-    <v-progress-circular v-if="status_post == 'pending'" color="green" indeterminate
-      size="50"></v-progress-circular>
+    <v-progress-circular v-if="status_post == 'pending'" color="primary" indeterminate
+    size="50" width="12"></v-progress-circular>
   </div>
 
   <div v-if="img_swarmplot != '' && status_post != 'pending'">
@@ -31,14 +28,9 @@ const bck_end_base_url_ = runtimeConfig.public.backend_url_public;
 
 const endpoint_name = "/EDASwarmPlot"
 
-// Todo: use this to init form with previous results
 const init_swarmplot = store.get_relevant_resultat(endpoint_name) ;
 const init_swarmplot_params = init_swarmplot.parameters ;
 
-
-// let swarmplot_nom_classifier = ref("");
-// let swarmplot_nom_elem = ref("");
-// let img_swarmplot = ref("");
 
 const swarmplot_nom_classifier = ref(init_swarmplot_params.swarmplot_nom_classifier);
 const swarmplot_nom_elem = ref(init_swarmplot_params.swarmplot_nom_elem);
@@ -69,8 +61,6 @@ async function post_swarmplot() {
       // Handle the response errors
     }
   });
-  // status_post.value = status.value
-
 };
 
 
@@ -81,17 +71,5 @@ function reset_everything() {
   swarmplot_nom_classifier.value = "";
   img_swarmplot.value = "";
 }
-
-// Todo: update this :
-// function initialize_form() {
-//   if(img_swarmplot.value = "") {
-//     try {
-//       const previous_res = store.get_relevant_resultat(endpoint_name);
-//       swarmplot_nom_elem.value = previous_res.parameters["nom_elem"];
-//       swarmplot_nom_classifier.value = previous_res.parameters["nom_classifier"];
-//       img_swarmplot.value = previous_res.result;
-//     }
-//   }     
-// }
 
 </script>
