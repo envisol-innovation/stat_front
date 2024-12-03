@@ -28,6 +28,10 @@ const bck_end_base_url_ = runtimeConfig.public.backend_url_public;
 
 const endpoint_name = "/EDASwarmPlot"
 
+// Todo: use this to init form with previous results
+// const init_swarmplot_params = store.get_relevant_resultat(endpoint_name).parameters ;
+
+
 let swarmplot_nom_elem = ref("");
 let swarmplot_nom_classifier = ref("");
 let img_swarmplot = ref("");
@@ -66,7 +70,7 @@ function reset_everything() {
   img_swarmplot.value = "";
 }
 
-
+// Todo: update this :
 // function initialize_form() {
 //   if(img_swarmplot.value = "") {
 //     try {
@@ -75,7 +79,7 @@ function reset_everything() {
 //       swarmplot_nom_classifier.value = previous_res.parameters["nom_classifier"];
 //       img_swarmplot.value = previous_res.result;
 //     }
-//   }
+//   }     
 // }
 
 </script>
