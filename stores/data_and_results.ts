@@ -7,7 +7,7 @@ export const useMyData_and_resultsStore = defineStore({
     // new Resultat("EDABoxPlot", {"boxplot_sum_element": "", "selected_list_elements": ""}, "", "")
   ] as Resultat[]}),
   actions: {
-    set_data_csv(new_data_csv: []) {
+    set_data_csv(new_data_csv: unknown[]) {
       this.data_csv = new_data_csv
     },
 
@@ -15,6 +15,7 @@ export const useMyData_and_resultsStore = defineStore({
       this.colonnes = new_colonnes
     },
 
+    
     add_result(result: Resultat) {
       this.results.push(result)
     },

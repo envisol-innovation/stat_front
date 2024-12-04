@@ -42,7 +42,7 @@
   </div>
 
   <div v-if="show_swarmplot">
-    <Formulaire_swarmplot v-bind:data="store.data_csv" v-bind:colonnes="store.colonnes"></Formulaire_swarmplot>
+    <Formulaire_swarmplot></Formulaire_swarmplot>
   </div>
 
   <div v-if="show_boxplot">
@@ -67,30 +67,9 @@ const store = useMyData_and_resultsStore();
 const runtimeConfig = useRuntimeConfig()
 const bck_end_base_url_ = runtimeConfig.public.backend_url_public;
 
-
-// const files = ref([]);
-// let colonnes = ref([""]);
-// let data_csv = ref([]);
-// var filename = "";
-// var data = ref();
-// watch(files, Read_File);
-
 let show_stat_formulaire = ref(true)
 let show_swarmplot = ref(false)
 let show_boxplot = ref(false)
 
-// function Read_File() {
-
-//   const csv_file = files.value[0];
-//   console.log("file", csv_file);
-//   let reader = new FileReader();
-//   reader.readAsText(csv_file);
-//   reader.onload = () => {
-//     const csv_string: string = reader.result as string;
-//     const parser = PaPa.parse(csv_string, { delimiter: ";" });
-//     data_csv.value = PaPa.parse(csv_string, { delimiter: ";", header: true }).data;
-//     colonnes.value = parser.data[0] as [string];
-//   }
-// }
 
 </script>

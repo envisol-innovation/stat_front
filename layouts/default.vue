@@ -117,11 +117,12 @@
     </v-main>
   </v-app>
 </template>
+
+
 <script setup lang="ts">
 
 const runtimeConfig = useRuntimeConfig()
 const mode = runtimeConfig.public.mode;
-
 
 
 // const {
