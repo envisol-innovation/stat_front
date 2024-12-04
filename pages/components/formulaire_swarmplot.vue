@@ -9,6 +9,11 @@
     <v-progress-circular v-if="status_post == 'pending'" color="primary" indeterminate
     size="50" width="12"></v-progress-circular>
   </div>
+  
+  <div v-if="status_post == 'error'">
+    Erreur !
+    Ceci est probablement du a la présence de texte dans les colonnes sélectionnées. Vérifiez si elles sont inclues dans les alertes ci dessus et corrigez le fichier d'entré en conséquence.
+  </div>
 
   <div v-if="img_swarmplot != '' && status_post != 'pending'">
     <NuxtImg sizes="sm:600px md:760px lg:1200px xl:1200px" v-bind:src="`data:image/jpg;base64,${img_swarmplot}`" />
@@ -42,7 +47,7 @@ const status_post = ref("");
 async function post_swarmplot() {
   const { data: res, status } = await useFetch(bck_end_base_url_ + endpoint_name, {
     method: 'POST',
-    body: { "dataframe": store.data_csv, "nom_classifier": swarmplot_nom_classifier, "nom_elem": swarmplot_nom_elem },
+    body: { "dataframe": store.data_csv, "nom_classifier": swarmplot_nom_classifier.value, "nom_elem": swarmplot_nom_elem.value },
     onRequest({}){
       status_post.value = "pending";
     },
@@ -59,6 +64,7 @@ async function post_swarmplot() {
     },
     onResponseError({ request, response, options }) {
       // Handle the response errors
+      status_post.value = "error"
     }
   });
 };
