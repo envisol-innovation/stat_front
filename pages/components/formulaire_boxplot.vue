@@ -34,6 +34,12 @@
       ></v-progress-circular>
     </div>
 
+    <div v-if="status_post == 'error'">
+      Erreur !
+      Ceci est probablement du a la présence de texte dans les colonnes sélectionnées. Vérifiez si elles sont inclues dans les alertes ci dessus et corrigez le fichier d'entré en conséquence.
+      <!-- Status = {{status_post}} {{ typeof(status_post.value) }} {{ status_post.value == 'pending' }} -->
+    </div>
+
     <div v-if="img_boxplot != '' && status_post != 'pending'">
       <NuxtImg sizes="sm:600px md:760px lg:1200px xl:1200px" v-bind:src="`data:image/jpg;base64,${img_boxplot}`" />
     </div>
@@ -79,10 +85,13 @@ async function post_boxplot() {
       );
       store.add_result(res);
       status_post.value = "done";
+      console.log("87 here in post boxplot")
     },
     onResponseError({ request, response, options }) {
       // Handle the response errors
-      console.log("ERROR in post boxplot: ", response)
+      console.log("ERROR in post boxplot: ", response);
+      status_post.value = "error"
+
     }
   });
 }

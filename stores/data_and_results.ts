@@ -41,7 +41,7 @@ export const useMyData_and_resultsStore = defineStore({
             swarmplot_nom_classifier: "",
             swarmplot_nom_elem:"",
             boxplot_sum_element:"",
-            boxplot_selected_list_elements: [""]
+            boxplot_selected_list_elements: []
           },
           "",
           ""
