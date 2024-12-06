@@ -22,7 +22,6 @@
 </template>
 
 <script setup lang="ts">
-// import { NuxtImg } from '#build/components';
 import { useMyData_and_resultsStore, Resultat } from '#build/imports';
 
 
