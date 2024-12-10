@@ -16,7 +16,7 @@ export const useMyData_and_resultsStore = defineStore({
   },
 
   actions: {
-    set_data_csv(new_data_csv: []) {
+    set_data_csv(new_data_csv: unknown[]) {
       this.data_csv = new_data_csv;
       // if the file changes then no need to save the previous analysis in this store. if we want to keep them, maybe add an "archive" store?
       this.results = [] as Resultat[];
