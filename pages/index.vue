@@ -16,7 +16,6 @@
   </v-navigation-drawer>
 
   <div>
-
     <v-card>
       <v-card-text>
         <!-- Maybe this should be hidable? -->
