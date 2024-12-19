@@ -41,7 +41,8 @@ export const useMyData_and_resultsStore = defineStore({
             swarmplot_nom_classifier: "",
             swarmplot_nom_elem:"",
             boxplot_sum_element:"",
-            boxplot_selected_list_elements: []
+            boxplot_selected_list_elements: [],
+            visual_element:""
           },
           "",
           ""
@@ -79,6 +80,7 @@ export type Parameters = {
   swarmplot_nom_classifier?: string;
   boxplot_sum_element?: string;
   boxplot_selected_list_elements?: Array<string>;
+  visual_element?: string;
 }
 
 // type ParametersBoxplot = {
