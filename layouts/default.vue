@@ -7,6 +7,13 @@
       <div v-else>
         <NuxtImg src="/2024_Logo_blanc_sans_site.png" height="60" contain ></NuxtImg>
       </div>
+      <div>
+          <button @click="signIn('auth0')">Login</button>
+          <button @click="signOut()">Logout</button>
+      </div>
+      <div>
+        You are currently {{ status }}.
+      </div>
     </v-app-bar>
 
     <!-- <v-navigation-drawer>
@@ -139,31 +146,31 @@ const mode = runtimeConfig.public.mode;
 
 
 
-// const {
-//   status,
-//   data,
-//   lastRefreshedAt,
-//   getCsrfToken,
-//   getProviders,
-//   getSession,
-//   signIn,
-//   signOut
-// } = useAuth()
+const {
+  status,
+  data,
+  lastRefreshedAt,
+  getCsrfToken,
+  getProviders,
+  getSession,
+  signIn,
+  signOut
+} = useAuth()
 
-// // await signIn("auth0")
+// await signIn("auth0")
 
 
-// async function lets_sign_in () {
-//   console.log("trying to sign in");
-//   await signIn("auth0")
+async function lets_sign_in () {
+  console.log("trying to sign in");
+  await signIn("auth0")
 
-// }
+}
 
-// async function lets_sign_outn () {
-//   console.log("trying to sign in");
-//   await signOut()
+async function lets_sign_outn () {
+  console.log("trying to sign in");
+  await signOut()
 
-// }
+}
 
 </script>
 
