@@ -16,7 +16,7 @@ export const useMyData_and_resultsStore = defineStore({
   },
 
   actions: {
-    set_data_csv(new_data_csv: []) {
+    set_data_csv(new_data_csv: unknown[]) {
       this.data_csv = new_data_csv;
       // if the file changes then no need to save the previous analysis in this store. if we want to keep them, maybe add an "archive" store?
       this.results = [] as Resultat[];
@@ -26,6 +26,7 @@ export const useMyData_and_resultsStore = defineStore({
       this.colonnes = new_colonnes
     },
 
+    
     add_result(result: Resultat) {
       this.results.push(result)
     },
@@ -40,7 +41,8 @@ export const useMyData_and_resultsStore = defineStore({
             swarmplot_nom_classifier: "",
             swarmplot_nom_elem:"",
             boxplot_sum_element:"",
-            boxplot_selected_list_elements: []
+            boxplot_selected_list_elements: [],
+            visual_element:""
           },
           "",
           ""
@@ -78,6 +80,7 @@ export type Parameters = {
   swarmplot_nom_classifier?: string;
   boxplot_sum_element?: string;
   boxplot_selected_list_elements?: Array<string>;
+  visual_element?: string;
 }
 
 // type ParametersBoxplot = {

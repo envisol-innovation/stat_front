@@ -21,7 +21,7 @@ npm run dev
 The url where the dev demo is running will appear in the terminal
 By default it will be: http://localhost:3000/
 
-For backend interaction to work, the variable BACKEND_URL should point to an active api
+For backend interaction to work, the variable BACKEND_BASE_URL should point to an active api
 
 
 The main branch sould only be for production code that is ready to be online

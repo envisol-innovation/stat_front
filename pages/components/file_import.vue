@@ -15,7 +15,8 @@
           Colonnes potentiellement problématiques :
           <div v-for="c in weird_colonnes">
             - {{c['col_name']}}
-          </div></v-expansion-panel-text>
+          </div>
+        </v-expansion-panel-text>
       </v-expansion-panel>
     </v-expansion-panels>
   </div>
@@ -49,7 +50,7 @@ const store = useMyData_and_resultsStore();
 // let data_csv = ref([]);
 
 const files = ref([]);
-let weird_colonnes = ref([])
+const weird_colonnes = ref([])
 
 watch(files, Read_File);
 
@@ -61,21 +62,21 @@ async function Read_File() {
   reader.readAsText(csv_file);
   reader.onload = async () => {
     const csv_string: string = reader.result as string;
-    const parser = PaPa.parse(csv_string, { delimiter: ";" });
     const new_data_csv = PaPa.parse(csv_string, { delimiter: ";", header: true }).data;
     store.set_data_csv(new_data_csv);
+    const parser = PaPa.parse(csv_string, { delimiter: ";" });
     const new_colonnes = parser.data[0] as [string];
     store.set_colonnes(new_colonnes);
 
     const { data, status } = await useFetch(bck_end_base_url_+'/QAQCImport', {
-    method: 'POST',
-    body: {"dataframe": store.data_csv},
-    onResponse({ request, response, options }) {
-      weird_colonnes.value = response._data["mixed_type_columns"];
-    },
-    onResponseError({ request, response, options }) {
-      // Handle the response errors
-    }
+      method: 'POST',
+      body: {"dataframe": store.data_csv},
+      onResponse({ request, response, options }) {
+        weird_colonnes.value = response._data["mixed_type_columns"];
+      },
+      onResponseError({ request, response, options }) {
+        // Handle the response errors
+      }
     });
   }
 }

@@ -139,11 +139,12 @@
     </v-main>
   </v-app>
 </template>
+
+
 <script setup lang="ts">
 
 const runtimeConfig = useRuntimeConfig()
 const mode = runtimeConfig.public.mode;
-
 
 
 const {
@@ -157,7 +158,7 @@ const {
   signOut
 } = useAuth()
 
-// await signIn("auth0")
+// // await signIn("auth0")
 
 
 async function lets_sign_in () {
