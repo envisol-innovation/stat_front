@@ -35,8 +35,9 @@ export default defineNuxtConfig({
     isEnabled: true,
     // disableServerSideAuth: false,
     originEnvKey: 'NUXT_AUTH_ORIGIN',
-    // baseURL: 'https://stats-envisol.netlify.app/api/auth',   // production path: must be added to the Allowed callback url on auth0 manager (with /callback/auth0 at the end)
-    baseURL: 'http://localhost:3000/api/auth',   // this must be updated for production and be app url + path to NuxtAuthHandler ALSO this path must be added to the Allowed callback url on auth0 manager
+    baseURL: process.env.NUXT_AUTH_ORIGIN + '/api/auth',
+    // this must be updated for production and be app url + path to NuxtAuthHandler ALSO this path must be added to the Allowed callback url on auth0 manager
+    // production path: must be added to the Allowed callback url on auth0 manager (with /callback/auth0 at the end)
     provider: {
       type: 'authjs',
       defaultProvider: 'auth0',
@@ -51,12 +52,18 @@ export default defineNuxtConfig({
     // The private keys which are only available within server-side
     // that's not really secret though, bc this rep is public!!!!!!
     apiSecret: '123',
-    authsecret: "my_secret_is_not_very_secure",
+    authsecret: process.env.AUTH0_SECRET,
     // Keys within public, will be also exposed to the client-side
     public: {
       apiBase: '/api',
       backend_url_public: process.env.BACKEND_BASE_URL,
-      mode: process.env.MODE
+      mode: process.env.MODE,
+      client_id: process.env.AUTH0_CLIENT_ID,
+      client_secret: process.env.AUTH0_CLIENT_SECRET,
+      domain: process.env.AUTH0_DOMAIN,
+      // issuer: process.env.AUTH0_ISSUER,
+      // well_known: process.env.AUTH0_WELLKNOWN,
+
     },
     privateRuntimeConfig: {
       backend_url: process.env.BACKEND_BASE_URL

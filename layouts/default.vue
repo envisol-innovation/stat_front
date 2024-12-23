@@ -163,7 +163,7 @@ const {
 
 async function lets_sign_in () {
   console.log("trying to sign in");
-  await signIn("auth0")
+  await signIn("auth0", {})
 
 }
 
