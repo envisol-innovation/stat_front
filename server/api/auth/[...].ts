@@ -1,10 +1,11 @@
 import { NuxtAuthHandler } from '#auth'
 import Auth0Provider from "next-auth/providers/auth0";
 
+console.log("hello??")
 
 export default NuxtAuthHandler({
     // A secret string you define, to ensure correct encryption
-    secret: process.env.AUTH0_SECRET,
+    secret: useRuntimeConfig().authSecret,
     providers: [
         Auth0Provider.default({    // .default() is correct from the doc
             clientId: process.env.AUTH0_CLIENT_ID,

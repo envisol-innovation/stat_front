@@ -51,10 +51,10 @@ export default defineNuxtConfig({
     // The private keys which are only available within server-side
     // that's not really secret though, bc this rep is public!!!!!!
     apiSecret: '123',
-    authsecret: process.env.AUTH0_SECRET,
+    authSecret: process.env.AUTH0_SECRET,
     // Keys within public, will be also exposed to the client-side
     public: {
-      apiBase: '/api',
+      apiBase: 'api',
       backend_url_public: process.env.BACKEND_BASE_URL,
       mode: process.env.MODE,
       client_id: process.env.AUTH0_CLIENT_ID,
