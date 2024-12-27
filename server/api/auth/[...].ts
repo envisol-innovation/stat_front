@@ -5,7 +5,7 @@ console.log("hello??")
 
 export default NuxtAuthHandler({
     // A secret string you define, to ensure correct encryption
-    secret: useRuntimeConfig().authSecret,
+    secret: process.env.NUXT_AUTH_SECRET,
     providers: [
         Auth0Provider.default({    // .default() is correct from the doc
             clientId: process.env.AUTH0_CLIENT_ID,
