@@ -36,11 +36,10 @@ export default defineNuxtConfig({
     isEnabled: true,
     // disableServerSideAuth: false,
     originEnvKey: 'NUXT_AUTH_ORIGIN',
-    baseURL: process.env.NUXT_AUTH_ORIGIN + '/api/auth',   // this must be updated for production and be app url + path to NuxtAuthHandler ALSO this path must be added to the Allowed callback url on auth0 manager
+    baseURL: process.env.NUXT_AUTH_ORIGIN + 'api/auth',   // this must be updated for production and be app url + path to NuxtAuthHandler ALSO this path must be added to the Allowed callback url on auth0 manager
     provider: {
       type: 'authjs',
       defaultProvider: 'auth0',
-      
     },
     sessionRefresh: {
       enablePeriodically: true,
@@ -51,7 +50,7 @@ export default defineNuxtConfig({
     // The private keys which are only available within server-side
     // that's not really secret though, bc this rep is public!!!!!!
     apiSecret: '123',
-    authSecret: process.env.AUTH0_SECRET,
+    authsecret: "my_secret_is_not_very_secure",
     // Keys within public, will be also exposed to the client-side
     public: {
       apiBase: 'api',
