@@ -15,6 +15,9 @@
           <button @click="signOut()">Logout</button>
         </li>
       </ul>
+      <div>
+        You are currently {{ status }}.
+      </div>
     </v-app-bar>
 
     <!-- <v-navigation-drawer>
