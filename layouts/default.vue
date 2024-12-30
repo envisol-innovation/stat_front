@@ -7,13 +7,17 @@
       <div v-else>
         <NuxtImg src="/2024_Logo_blanc_sans_site.png" height="60" contain ></NuxtImg>
       </div>
-      <div>
+      <ul>
+        <li>
           <button @click="signIn('auth0')">Login</button>
+        </li>
+        <li>
           <button @click="signOut()">Logout</button>
-      </div>
-      <div>
+        </li>
+      </ul>
+      <!-- <div>
         You are currently {{ status }}.
-      </div>
+      </div> -->
     </v-app-bar>
 
     <!-- <v-navigation-drawer>
@@ -34,14 +38,7 @@
           </v-btn>
         </v-list-item>
       </v-list>
-       <ul>
-        <li>
-          <button @click="signIn('auth0')">Login</button>
-        </li>
-        <li>
-          <button @click="signOut()">Logout</button>
-        </li>
-      </ul>
+
 
       <div>
         You are currently {{ status }}.
@@ -122,20 +119,20 @@
     <!-- </v-navigation-drawer> -->
     <v-main>
           <v-alert
-      border="bottom"
-      colored-border
-      color="blue-grey"
-      type="warning"
-      elevation="2"
-    >
-    Ces outils permettent de caractériser des signatures géochimiques et/ou l'impact de paramètres extérieurs (lithologies, profondeur)
-     sur la distribution des polluants.<br>
-    Il est nécessaire d'évaluer la pertinence des données utilisées : en particulier en fonction des zones à risques,
-     de la présence de sources distinctes, etc.<br>
-    Prenez le temps d'interpréter vos données au regard de ces éléments avant de réaliser les analyses statistiques.<br>
-    Lors du calcul de signature géochimique par exemple, veillez notamment à n'inclure qu'une unique source de polluant dans vos données.
-    </v-alert>
-      <NuxtPage />
+            border="bottom"
+            colored-border
+            color="blue-grey"
+            type="warning"
+            elevation="2">
+              Ces outils permettent de caractériser des signatures géochimiques et/ou l'impact de paramètres extérieurs (lithologies, profondeur)
+              sur la distribution des polluants.<br>
+              Il est nécessaire d'évaluer la pertinence des données utilisées : en particulier en fonction des zones à risques,
+              de la présence de sources distinctes, etc.<br>
+              Prenez le temps d'interpréter vos données au regard de ces éléments avant de réaliser les analyses statistiques.<br>
+              Lors du calcul de signature géochimique par exemple, veillez notamment à n'inclure qu'une unique source de polluant dans vos données.
+          </v-alert>
+      <div v-if="status=='authenticated'"><NuxtPage /></div>
+      <div v-else> <v-btn color="primary" block size="x-large" @click="signIn('auth0')">Login</v-btn> </div>
     </v-main>
   </v-app>
 </template>
@@ -145,6 +142,7 @@
 
 const runtimeConfig = useRuntimeConfig()
 const mode = runtimeConfig.public.mode;
+
 
 
 const {
@@ -158,12 +156,12 @@ const {
   signOut
 } = useAuth()
 
-// // await signIn("auth0")
+// await signIn("auth0")
 
 
 async function lets_sign_in () {
   console.log("trying to sign in");
-  await signIn("auth0", {})
+  await signIn("auth0")
 
 }
 
