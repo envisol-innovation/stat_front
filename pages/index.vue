@@ -11,6 +11,9 @@
         <v-list-item>
           <v-switch v-model="show_boxplot" color="primary" label="Boxplots"></v-switch>
         </v-list-item>
+        <v-list-item>
+          <v-switch v-model="show_swarmplot_g" color="primary" label="Swarmplot"></v-switch>
+        </v-list-item>
       </v-list>
     </v-list>
   </v-navigation-drawer>
@@ -48,6 +51,9 @@
     <Formulaire_boxplot></Formulaire_boxplot>
   </div>
 
+  <div v-if="show_swarmplot">
+    <Formulaire_generalise endpoint_name="/EDA_Swarmplot"></Formulaire_generalise>
+  </div>
 
 </template>
 
@@ -60,6 +66,7 @@ import Formulaire_swarmplot from './components/formulaire_swarmplot.vue';
 import Formulaire_boxplot from './components/formulaire_boxplot.vue';
 import Formulaire_stats_de_base from './components/formulaire_stats_de_base.vue';
 import File_import from './components/file_import.vue';
+import Formulaire_generalise from './components/formulaire_generalise.vue';
 
 const store = useMyData_and_resultsStore();
 
@@ -69,6 +76,7 @@ const bck_end_base_url_ = runtimeConfig.public.backend_url_public;
 let show_stat_formulaire = ref(true)
 let show_swarmplot = ref(false)
 let show_boxplot = ref(false)
+let show_swarmplot_g = ref(false)
 
 
 </script>

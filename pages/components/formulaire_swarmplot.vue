@@ -1,5 +1,5 @@
 <template>
-  <h1> Swarmplot </h1>
+  <h1> Swarmplot </h1> 
 
   <v-select v-model="swarmplot_nom_elem" :items="store.colonnes" label="Élément à analyser"> </v-select>
   <v-select v-model="swarmplot_nom_classifier" :items="store.colonnes" label="Catégorie à analyser"> </v-select>
@@ -56,9 +56,10 @@ async function post_swarmplot() {
         endpoint_name,
         { "swarmplot_nom_classifier": swarmplot_nom_classifier.value, "swarmplot_nom_elem": swarmplot_nom_elem.value },
         response._data["fig"],
-        response._data["name_fig"]
+        response._data["name_fig"],
       );
       store.add_result(res);
+      store.add_result_from_response(response._data);
       status_post.value = "done"
     },
     onResponseError({ request, response, options }) {

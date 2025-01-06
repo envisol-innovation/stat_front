@@ -5,7 +5,7 @@
     <v-select v-model="boxplot_sum_element" :items="store.colonnes" label="Somme à analyser"> </v-select>
     <v-select v-model="boxplot_selected_list_elements" :items="store.colonnes" label="Éléments dans la somme à analyser" multiple>
       <template v-slot:prepend-item>
-        <v-list-item @click="toggle">
+        <v-list-item @click="toggle"> 
           <v-list-item-action>
             <v-icon :color="boxplot_selected_list_elements.length > 0 ? 'indigo darken-4' : ''"></v-icon>
           </v-list-item-action>

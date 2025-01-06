@@ -31,6 +31,11 @@ export const useMyData_and_resultsStore = defineStore({
       this.results.push(result)
     },
 
+    
+    add_result_from_response(result: any) {
+      this.results.push(result)
+    },
+
     get_relevant_resultat(endpoint_: string) : Resultat {
       const relevant_res = this.results.filter((value) => value.endpoint_called == endpoint_);
       console.log("relevant_res", relevant_res);

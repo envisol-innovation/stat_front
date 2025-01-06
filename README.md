@@ -1,10 +1,9 @@
 # Welcome to the stat_front code!
 
-Because they contain secret data, two files aren't versioned in this repository: auth_config.json and .env
-auth_config.json : contains authentication data
+Because they contain secret data, two files aren't versioned in this repository: .env
 .env contain notably the backend url
 
-They should NEVER be versioned (they contain secret data)
+It should NEVER be versioned (it contains secret data)
 
 
 To run locally the code needs node 18.20.4
