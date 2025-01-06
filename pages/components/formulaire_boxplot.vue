@@ -15,7 +15,7 @@
                 Désélectionner tout
               </div>
               <div v-else>
-                Sélectionner tout
+                Sélectionner tout 
               </div>
             </v-list-item-title>
           </v-list-item-content>

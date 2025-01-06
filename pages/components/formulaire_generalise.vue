@@ -14,7 +14,7 @@ let props_from_parent = defineProps<{name: string, endpoint_name: string, champs
 
 const store = useMyData_and_resultsStore();
 
-const init_form = store.get_relevant_resultat(props_from_parent.endpoint_name) ;
+const init_form = store.get_relevant_resultat(props_from_parent.endpoint_name);
 const init_form_params = init_form.parameters ;
 
 

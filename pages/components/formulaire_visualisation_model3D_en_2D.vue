@@ -1,7 +1,7 @@
 <template>
   <h1> Visualisation du modèle</h1>
 
-  <v-select v-model="visual" :items="store.colonnes" label="Composé à visualiser"> </v-select>
+  <v-select v-model="value_to_model" :items="store.colonnes" label="Composé à visualiser"> </v-select>
   <v-btn color="primary" @click="post_hrk_3Dmodelling"> Charger les données</v-btn>
 
   <div v-if="status_post">
@@ -33,8 +33,10 @@ const runtimeConfig = useRuntimeConfig();
 const bck_end_base_url_ = runtimeConfig.public.backend_url_public;
 const store = useMyData_and_resultsStore();
 const endpoint_name = "/3Dmodelling_in2D" // ??? what name using in backend
+
 const status_post = ref<string>('');
 
+const value_to_model = ref("")
 const init_visual = store.get_relevant_resultat(endpoint_name) ;
 const img_visual = ref(init_visual.result)
 const init_visual_params = init_visual.parameters ;
@@ -46,6 +48,7 @@ let props_from_parent = defineProps({
       required: true,
   },
 });
+
 
 async function post_hrk_3Dmodelling() {
 const { data, status } = await useFetch(bck_end_base_url_ + endpoint_name, {
