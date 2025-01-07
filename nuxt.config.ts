@@ -55,6 +55,7 @@ export default defineNuxtConfig({
     public: {
       apiBase: '/api',
       backend_url_public: process.env.BACKEND_BASE_URL,
+      backend_url_public_hrk: process.env.BACKEND_BASE_URL_hrk,
       // mode: process.env.MODE,
       // client_id: process.env.AUTH0_CLIENT_ID,
       // client_secret: process.env.AUTH0_CLIENT_SECRET,

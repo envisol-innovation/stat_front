@@ -86,6 +86,8 @@ export type Parameters = {
   boxplot_sum_element?: string;
   boxplot_selected_list_elements?: Array<string>;
   visual_element?: string;
+  modelisation_compound_to_visualize?: string;
+  modelisation_projection?: number;
 }
 
 // type ParametersBoxplot = {

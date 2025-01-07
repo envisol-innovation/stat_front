@@ -41,7 +41,7 @@ const props_sets = [
 ];
 
 const name = ref(props_sets.values["name"]);
-const selectedPropsSet = ref(props_sets[2]); //basic_stat is used by default.
+const selectedPropsSet = ref(props_sets[2]);
 
 const init_form = store.get_relevant_resultat(selectedPropsSet.value.endpoint_name) ;
 const init_form_params = init_form.parameters ;
@@ -61,14 +61,6 @@ const runtimeConfig = useRuntimeConfig();
 const bck_end_base_url_ = runtimeConfig.public.backend_url_public;
 
 const status_post = ref("");
-
-// const init_post = store.get_relevant_resultat(endpoint_name) ;
-// const init_post_params = init_post.parameters ;
-
-
-// const swarmplot_nom_classifier = ref(init_post_params.swarmplot_nom_classifier);
-// const swarmplot_nom_elem = ref(init_post_params.swarmplot_nom_elem);
-// const img = ref(init_post.result);
 
 async function post_form() {
   let body: any = { "dataframe": store.data_csv };
