@@ -7,14 +7,8 @@
       <div v-else>
         <NuxtImg src="/2024_Logo_blanc_sans_site.png" height="60" contain ></NuxtImg>
       </div>
-      <ul>
-        <li>
-          <button @click="signIn('auth0')">Login</button>
-        </li>
-        <li>
-          <button @click="signOut()">Logout</button>
-        </li>
-      </ul>
+      <v-spacer></v-spacer>
+      <v-btn href="https://dev-0isu4xeopx0o8w7f.eu.auth0.com/v2/logout?redirect="  color="white">Déconnexion</v-btn>
       <!-- <div>
         You are currently {{ status }}.
       </div> -->
@@ -132,7 +126,7 @@
               Lors du calcul de signature géochimique par exemple, veillez notamment à n'inclure qu'une unique source de polluant dans vos données.
           </v-alert>
       <div v-if="status=='authenticated'"><NuxtPage /></div>
-      <div v-else> <v-btn color="primary" block size="x-large" @click="signIn('auth0')">Login</v-btn> </div>
+      <div v-else> <v-btn color="primary" text-color="white" block size="x-large" @click="lets_sign_in">Connexion</v-btn> </div>
     </v-main>
   </v-app>
 </template>
@@ -159,14 +153,14 @@ const {
 
 async function lets_sign_in () {
   console.log("trying to sign in");
-  await signIn("auth0")
+  await signIn("auth0", { params: { prompt: 'login' } })
 
 }
 
-async function lets_sign_outn () {
+async function lets_sign_out () {
   console.log("trying to sign in");
   await signOut()
-
+  
 }
 
 </script>
