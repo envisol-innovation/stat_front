@@ -31,23 +31,6 @@ const bck_end_base_url_ = runtimeConfig.public.backend_url_public;
 
 const store = useMyData_and_resultsStore();
 
-
-//   let props_from_parent = defineProps({
-//     colonnes: {
-//         type: Array,
-//         required: true,
-//     },
-//     data_csv: {
-//       type: Array,
-//       required: true,
-//     }
-// })
-
-// const files = ref([]);
-// let colonnes = ref([""]);
-
-// let data_csv = ref([]);
-
 const files = ref([]);
 let weird_colonnes = ref([])
 

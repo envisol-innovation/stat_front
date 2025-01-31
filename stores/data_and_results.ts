@@ -87,3 +87,58 @@ export type Parameters = {
 //   nom_elem: string;
 //   nom_classifier: string;
 // } 
+
+
+
+export const useMySpectraStore = defineStore({
+  id: 'mySpectraStore',
+  // state: () => {return {data_csv: [""], colonnes: [""], results: [               // le return est important !
+  //   new Resultat("EDASwarmPlot", {"swarmplot_nom_elem": "", "swarmplot_nom_classifier": ""}, "", ""),
+  //   new Resultat("EDABoxPlot", {"boxplot_sum_element": "", "boxplot_list_elements": [""]}, "", "")
+  // ]}},
+
+  state: () => {
+    return {               // le return est important !
+      data_csv: [] as unknown[],
+      colonnes: [] as string[],
+      results: [] as Resultat[]
+    }
+  },
+
+  actions: {
+    set_data_csv(new_data_csv: unknown[]) {
+      this.data_csv = new_data_csv;
+      // if the file changes then no need to save the previous analysis in this store. if we want to keep them, maybe add an "archive" store?
+      this.results = [] as Resultat[];
+    },
+
+    set_colonnes(new_colonnes: string[]) {
+      this.colonnes = new_colonnes
+    },
+
+    add_result(result: Resultat) {
+      this.results.push(result)
+    },
+
+    get_relevant_resultat(endpoint_: string) : Resultat {
+      const relevant_res = this.results.filter((value) => value.endpoint_called == endpoint_);
+      console.log("relevant_res", relevant_res);
+      if (relevant_res.length == 0) {
+        return new Resultat(
+          endpoint_,
+          {
+            swarmplot_nom_classifier: "",
+            swarmplot_nom_elem:"",
+            boxplot_sum_element:"",
+            boxplot_selected_list_elements: []
+          },
+          "",
+          ""
+        )
+      }
+      else {
+        return relevant_res[relevant_res.length - 1]
+      };
+    }
+  }
+})

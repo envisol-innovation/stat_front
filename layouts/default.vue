@@ -17,7 +17,7 @@
     </v-app-bar>
 
     <v-main>
-          <v-alert
+          <v-alert v-if="!storeNav.mode_spectro"
             border="bottom"
             colored-border
             color="blue-grey"
