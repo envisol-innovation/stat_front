@@ -54,6 +54,8 @@
     //   const new_colonnes = parser.data[0] as [string];
     //   store.set_colonnes(new_colonnes);
   
+
+    // TODO: send string / receive html figure and indice_carbonate
       const { data, status } = await useFetch(bck_end_base_url_+'/QAQCImport', {
       method: 'POST',
       body: {"dataframe": store.data_csv},
