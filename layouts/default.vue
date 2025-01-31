@@ -8,7 +8,7 @@
         <NuxtImg src="/2024_Logo_blanc_sans_site.png" height="60" contain ></NuxtImg>
       </div>
       <v-spacer></v-spacer>
-      <v-btn href="https://dev-0isu4xeopx0o8w7f.eu.auth0.com/v2/logout?redirect="  color="white">Déconnexion</v-btn>
+      <v-btn color="white" @click="lets_sign_out()">Déconnexion</v-btn>
       <!-- <div>
         You are currently {{ status }}.
       </div> -->
@@ -126,10 +126,12 @@
               Lors du calcul de signature géochimique par exemple, veillez notamment à n'inclure qu'une unique source de polluant dans vos données.
           </v-alert>
       <div v-if="status=='authenticated'"><NuxtPage /></div>
-      <div v-else> <v-btn color="primary" text-color="white" block size="x-large" @click="lets_sign_in">Connexion</v-btn> </div>
+      <div v-else> <v-btn color="primary" block size="x-large" @click="lets_sign_in()">Connexion</v-btn> </div>
     </v-main>
   </v-app>
 </template>
+
+
 <script setup lang="ts">
 
 const runtimeConfig = useRuntimeConfig()
@@ -153,14 +155,17 @@ const {
 
 async function lets_sign_in () {
   console.log("trying to sign in");
-  await signIn("auth0", { params: { prompt: 'login' } })
-
+  await signIn("auth0", {}, {"prompt": "login"})
+  // see:
+  // https://github.com/sidebase/nuxt-auth/blob/main/src/runtime/composables/authjs/useAuth.ts
+  // l65  : signIn(provider, options, authorizationParams)
+  // authorizationParams let's you define how the app asks the user to login
+  // setting prompt to login makes it always ask the login/password rather than automatically reconnecting previous user
 }
 
 async function lets_sign_out () {
   console.log("trying to sign in");
   await signOut()
-  
 }
 
 </script>
