@@ -23,14 +23,18 @@ export default defineNuxtConfig({
               primary: '#84BC28'
             }
           }
-          },
+        },
         defaultTheme: process.env.MODE=='prod'? 'prod_theme' : 'test_theme',
       }
     }
   },
-
+  vite: {
+    optimizeDeps: {
+      include: ["plotly.js-dist-min"],
+    },
+  },
   // modules: ["vuetify-nuxt-module", "@pinia/nuxt", "@nuxt/image"],
-  modules: ["vuetify-nuxt-module", '@sidebase/nuxt-auth', "@pinia/nuxt", "@nuxt/image"],
+  modules: ["vuetify-nuxt-module", '@sidebase/nuxt-auth', "@pinia/nuxt", "@nuxt/image", "nuxt-plotly"],
   // modules: ["vuetify-nuxt-module", '@sidebase/nuxt-auth'],
   auth: {
     isEnabled: true,
@@ -55,10 +59,14 @@ export default defineNuxtConfig({
     public: {
       apiBase: '/api',
       backend_url_public: process.env.BACKEND_BASE_URL,
-      // mode: process.env.MODE,
-      // client_id: process.env.AUTH0_CLIENT_ID,
-      // client_secret: process.env.AUTH0_CLIENT_SECRET,
-      // domain: process.env.AUTH0_DOMAIN,
+      backend_swag_url_public: process.env.BACKEND_SWAG_BASE_URL,
+      backend_green_url_public: process.env.BACKEND_GREEN_BASE_URL,
+      mode: process.env.MODE,
+      domain: process.env.AUTH0_DOMAIN,
+      client_id: process.env.AUTH0_CLIENT_ID,
+      client_secret: process.env.AUTH0_CLIENT_SECRET,
+      issuer: process.env.ISSUER,
+      wellknown: process.env.AUTH0_WELLKNOWN,
     },
     privateRuntimeConfig: {
       backend_url: process.env.BACKEND_BASE_URL
