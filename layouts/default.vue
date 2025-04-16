@@ -11,7 +11,7 @@
       <div v-if="mode == 'spectro'">
         <v-switch v-model="storeNav.mode_spectro" color="primary" label="Spectro"></v-switch>
       </div>
-      <div v-else>mode : {{mode}}</div>
+      <!-- <div v-else>mode : {{mode}}</div> -->
       <v-btn color="white" @click="lets_sign_out()">Déconnexion</v-btn>
       <!-- <div>
         You are currently {{ status }}.
