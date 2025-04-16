@@ -1,82 +1,17 @@
 <template>
-  <v-navigation-drawer>
-    <v-list>
-      <v-list>
-        <v-list-item>
-          <v-switch v-model="show_stat_formulaire" color="primary" label="Statistiques de base"></v-switch>
-        </v-list-item>
-        <v-list-item>
-          <v-switch v-model="show_swarmplot" color="primary" label="Swarmplot"></v-switch>
-        </v-list-item>
-        <v-list-item>
-          <v-switch v-model="show_boxplot" color="primary" label="Boxplots"></v-switch>
-        </v-list-item>
-        <v-list-item>
-          <v-switch v-model="show_swarmplot_g" color="primary" label="Swarmplot"></v-switch>
-        </v-list-item>
-      </v-list>
-    </v-list>
-  </v-navigation-drawer>
-
-  <div>
-    <v-card>
-      <v-card-text>
-        <!-- Maybe this should be hidable? -->
-        <h1>Bienvenue sur l'interface pour l'analyse exploratoire de données !</h1>
-        Le fichier donné sera traité comme suit :<br>
-        - "nd", "<" sont transformés en 0<br>
-        - "na" et "-" sont considérés comme non analysé<br>
-        Tout autre texte ("non analysé" par exemple) n'est pas pris en compte et faussera les résultats !<br>
-      </v-card-text>
-    </v-card>
+  <div v-if="!storeNav.mode_spectro">
+    <stats_page />
   </div>
-
-  <!-- <div>
-    <VFileInput v-model="files" label="Selectionner fichier"></VFileInput>
-  </div> -->
-
-  <div>
-    <File_import> </File_import>
-  </div>
-
-  <div v-if="show_stat_formulaire">
-    <Formulaire_stats_de_base v-bind:data="store.data_csv"></Formulaire_stats_de_base>
-  </div>
-
-  <div v-if="show_swarmplot">
-    <Formulaire_swarmplot></Formulaire_swarmplot>
-  </div>
-
-  <div v-if="show_boxplot">
-    <Formulaire_boxplot></Formulaire_boxplot>
-  </div>
-
-  <div v-if="show_swarmplot">
-    <Formulaire_generalise endpoint_name="/EDA_Swarmplot"></Formulaire_generalise>
+  <div v-if="storeNav.mode_spectro">
+    <Spectro_page />
   </div>
 
 </template>
 
 <script setup lang="ts">
-import * as PaPa from 'papaparse';
+import { useMyNavStore } from '~/stores/nav';
+import stats_page from '~/components/stats_page.vue';
+import Spectro_page from '~/components/spectro_page.vue';
 
-import { useMyData_and_resultsStore } from '~/stores/data_and_results';
-
-import Formulaire_swarmplot from './components/formulaire_swarmplot.vue';
-import Formulaire_boxplot from './components/formulaire_boxplot.vue';
-import Formulaire_stats_de_base from './components/formulaire_stats_de_base.vue';
-import File_import from './components/file_import.vue';
-import Formulaire_generalise from './components/formulaire_generalise.vue';
-
-const store = useMyData_and_resultsStore();
-
-const runtimeConfig = useRuntimeConfig()
-const bck_end_base_url_ = runtimeConfig.public.backend_url_public;
-
-let show_stat_formulaire = ref(true)
-let show_swarmplot = ref(false)
-let show_boxplot = ref(false)
-let show_swarmplot_g = ref(false)
-
-
+const storeNav = useMyNavStore();
 </script>
