@@ -7,17 +7,26 @@
     <div v-else-if="array_of_champs[i-1][0].type_of_champ == 'num'">
       <v-text-field v-model="array_of_champs[i-1][1].value" :label="champs[i-1].label" type="number"></v-text-field>
     </div>
-    <div v-else>
+    <div v-else-if="array_of_champs[i-1][0].type_of_champ == 'col'">
       <v-select v-model="array_of_champs[i-1][1].value" :items="store.colonnes" :label="champs[i-1].label"></v-select>
+    </div>
+    <div v-else-if="array_of_champs[i-1][0].type_of_champ == 'num_list'">
+      <v-text-field v-model="array_of_champs[i-1][1].value" :label="champs[i-1].label"></v-text-field>
+    </div>
+    <div v-else>
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+      !!!!!!!!! ERREUR le champs marche pas !!!!!!!!!
+      !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
     </div>
   </div>
   <v-btn color="primary" @click="post_form">Go</v-btn>
-
+  {{status_post}}
   <div v-if="status_post == 'pending'">
-    <v-progress-circular v-if="status_post == 'pending'"
+    brrrr
+    <!-- <v-progress-circular v-if="status_post == 'pending'"
     color="green"
     indeterminate
-  ></v-progress-circular>
+  ></v-progress-circular> -->
   </div>
   <div v-if="status_post == 'error'">
     Erreur !
@@ -25,20 +34,23 @@
   </div>
 
   <div v-if="res_from_post != '' && status_post != 'pending'">
-    <NuxtImg sizes="sm:600px md:760px lg:1200px xl:1200px" v-bind:src="`data:image/jpg;base64,${res_from_post}`" />
+    <NuxtImg v-bind:src="`data:image/jpg;base64,${res_from_post}`" />
+    <!-- <NuxtImg sizes="sm:600px md:760px lg:1200px xl:1200px" v-bind:src="`data:image/jpg;base64,${res_from_post}`" /> -->
   </div>
 </template>
 
 <script lang="ts" setup>
 import { useMyData_and_resultsStore, useMySpectraStore, Resultat } from '~/stores/data_and_results';
 import type { ParameterMap } from '~/stores/data_and_results';
+import chiplist from './chiplist.vue';
+import Chiplist from './chiplist.vue';
 // import type { AllowedParameters, ParameterMap } from '~/stores/data_and_results';
 
 export type Champ = {   // this looks a lot like a Parameter + a label, maybe change the type?
   label: string,
   name: keyof ParameterMap,
-  type_of_champ: "col" | "col_list" | "num",
-  default_value: string | Array<string> | number,
+  type_of_champ: "col" | "col_list" | "num" | "num_list",
+  default_value: string | Array<string> | number | Array<number>,
 }
 
 let props_from_parent = defineProps({
@@ -108,6 +120,14 @@ async function post_form() {
     if(array_of_champs.value[i][0].type_of_champ == "num") {
       body_json[array_of_champs.value[i][0].name] = Number(array_of_champs.value[i][1].value)
       console.log("heeee", typeof(body_json[array_of_champs.value[i][0].name]))
+    } else if (array_of_champs.value[i][0].type_of_champ == "num_list") {
+      console.log("heeee", array_of_champs.value[i][1].value)
+      var full_string: String = String(array_of_champs.value[i][1].value); // This is a bit unnecessary, it simply unsures that full string is indeed a string
+      console.log("heeee", full_string)
+      var list_str = full_string.split(' ');
+      console.log("heeee", list_str)
+      body_json[array_of_champs.value[i][0].name] = list_str.map(s => Number(s))
+      console.log("heeee", typeof(body_json[array_of_champs.value[i][0].name]), body_json[array_of_champs.value[i][0].name])
     } else {
       body_json[array_of_champs.value[i][0].name] = array_of_champs.value[i][1].value
     }
@@ -134,8 +154,15 @@ async function post_form() {
       store.add_result(res);
       status_post.value = "done"
     },
+    onRequestError({ request, response, options }) {
+      // Handle the response errors
+      console.log("onRequestError", request)
+
+      status_post.value = "error"
+    },
     onResponseError({ request, response, options }) {
       // Handle the response errors
+      console.log("onResponseError")
       status_post.value = "error"
     }
   });
@@ -150,6 +177,7 @@ function reset_everything() {
   };
   res_from_post.value = ""
 }
+
 
 </script>
 
