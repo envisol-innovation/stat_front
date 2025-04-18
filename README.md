@@ -1,10 +1,9 @@
 # Welcome to the stat_front code!
 
-Because they contain secret data, two files aren't versioned in this repository: auth_config.json and .env
-auth_config.json : contains authentication data
+Because they contain secret data, two files aren't versioned in this repository: .env
 .env contain notably the backend url
 
-They should NEVER be versioned (they contain secret data)
+It should NEVER be versioned (it contains secret data)
 
 
 To run locally the code needs node 18.20.4
@@ -21,7 +20,7 @@ npm run dev
 The url where the dev demo is running will appear in the terminal
 By default it will be: http://localhost:3000/
 
-For backend interaction to work, the variable BACKEND_URL should point to an active api
+For backend interaction to work, the variable BACKEND_BASE_URL should point to an active api
 
 
 The main branch sould only be for production code that is ready to be online

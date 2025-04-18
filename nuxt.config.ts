@@ -71,5 +71,7 @@ export default defineNuxtConfig({
     privateRuntimeConfig: {
       backend_url: process.env.BACKEND_BASE_URL
     }
-  }
+  },
+
+  compatibilityDate: '2024-11-27'
 })

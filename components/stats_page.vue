@@ -37,9 +37,9 @@
   <div v-if="storeNav.show_freq_cum">
     <FormulaireGeneralise name="Fréquences cumulées" endpoint_name="/FreqCum" :champs=list_champ_freq_cum store_name="MyData_and_resultsStore"></FormulaireGeneralise>
   </div>
-  <!-- <div v-if="storeNav.show_hist">
+  <div v-if="storeNav.show_hist">
     <FormulaireGeneralise name="Histogramme" endpoint_name="/EDAHistogram" :champs=list_champ_histo store_name="MyData_and_resultsStore"></FormulaireGeneralise>
-  </div> -->
+  </div>
 
 </template>
 
@@ -55,6 +55,16 @@ import type { Champ } from './formulaire_generalise.vue';
 const store = useMyData_and_resultsStore();
 const storeNav = useMyNavStore();
 
+const list_champ_histo : Ref<Array<Champ>> = ref([
+  {label: "Élément à analyser", name: "nom_elem", type_of_champ: "col", default_value: ""},
+  {label: "Concentrations séparées par un espace (ex. 0 200 1000) (si vide des valeurs automatiques seront déterminé)", name: "bins", type_of_champ: "num_list", default_value: ""},
+  // {label: "Nombre d'étiquette d'échantillon à afficher", name: "number_of_samples_to_show", type_of_champ: "num", default_value: 0}
+])
+const list_champ_freq_cum : Ref<Array<Champ>> = ref([
+  {label: "Élément à analyser", name: "nom_elem", type_of_champ: "col", default_value: ""},
+  {label: "Colonne avec les noms d'échantillon", name: "nom_id_sample", type_of_champ: "col", default_value: ""},
+  {label: "Nombre d'étiquette d'échantillon à afficher", name: "number_of_samples_to_show", type_of_champ: "num", default_value: 0}
+])
 const list_champ_swarmplot : Ref<Array<Champ>> = ref([
   {label: "Élément à analyser", name: "nom_elem", type_of_champ: "col", default_value: ""},
   {label: "Catégorie à analyser", name: "nom_classifier", type_of_champ: "col", default_value: ""}
@@ -62,16 +72,6 @@ const list_champ_swarmplot : Ref<Array<Champ>> = ref([
 const list_champ_boxplot : Ref<Array<Champ>> = ref([
   {label: "Somme à analyser", name: "sum_element", type_of_champ: "col", default_value: ""},
   {label: "Éléments dans la somme à analyser", name: "list_elements", type_of_champ: "col_list", default_value: []}
-])
-const list_champ_freq_cum : Ref<Array<Champ>> = ref([
-  {label: "Élément à analyser", name: "nom_elem", type_of_champ: "col", default_value: ""},
-  {label: "Colonne avec les noms d'échantillon", name: "nom_id_sample", type_of_champ: "col", default_value: ""},
-  {label: "Nombre d'étiquette d'échantillon à afficher", name: "number_of_samples_to_show", type_of_champ: "num", default_value: 0}
-])
-const list_champ_histo : Ref<Array<Champ>> = ref([
-  {label: "Élément à analyser", name: "nom_elem", type_of_champ: "col", default_value: ""},
-  // {label: "Colonne avec les noms d'échantillon", name: "nom_id_sample", type_of_champ: "col", default_value: ""},
-  // {label: "Nombre d'étiquette d'échantillon à afficher", name: "number_of_samples_to_show", type_of_champ: "num", default_value: 0}
 ])
 
 </script>
