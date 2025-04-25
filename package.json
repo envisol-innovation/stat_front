@@ -3,11 +3,12 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "nuxt build",
+    "build": "nuxi build && pnpm after-build-tasks",
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "after-build-tasks": "node ./scripts/afterBuildTasks.mjs"
   },
   "dependencies": {
     "@internationalized/number": "^3.6.0",
