@@ -47,7 +47,7 @@ export default defineNuxtConfig({
       defaultProvider: 'auth0',
     },
     sessionRefresh: {
-      enablePeriodically: true,
+      enablePeriodically: false,
       enableOnWindowFocus: true,
     }
   },
